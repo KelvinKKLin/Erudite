@@ -17,15 +17,17 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
-        final ImageView image = (ImageView) findViewById(R.id.imageView);
-        image.setImageResource(R.drawable.logo);
+        final ImageView logo = (ImageView) findViewById(R.id.logo);
+        final ImageView wordmark = (ImageView) findViewById(R.id.wordmark);
+        logo.setImageResource(R.drawable.logo);
+        wordmark.setImageResource(R.drawable.wordmark);
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clockwise);
-                image.startAnimation(anim);
+                logo.startAnimation(anim);
             }
         }, 1000);
 
