@@ -45,7 +45,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        launchSplashActivity();
+        //launchSplashActivity();   // Disabled for debugging during development.
+        launchLoginActivity();
     }
 
     @Override
