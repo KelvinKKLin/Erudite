@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
     }
 
     private void login(String token) {
-        storeToken(token);
+        DataStore.store(R.string.pref_key_token, token);
 
         Intent result = new Intent();
         setResult(RESULT_OK, result);
@@ -111,13 +111,4 @@ public class LoginActivity extends Activity {
         mEmailView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorDanger, null));
         mPasswordView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorDanger, null));
     }
-
-    private void storeToken(String token) {
-        SharedPreferences shared_pref = this.getSharedPreferences(
-                getString(R.string.pref_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = shared_pref.edit();
-        editor.putString(getString(R.string.pref_key_token), token);
-        editor.commit();
-    }
-
 }
