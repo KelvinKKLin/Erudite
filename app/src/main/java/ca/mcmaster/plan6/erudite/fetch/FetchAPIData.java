@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.fetch;
 
 import android.os.AsyncTask;
 
@@ -14,14 +14,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-// TODO: Make abstract.
-public class FetchAPIData extends AsyncTask<String, Void, String> {
+public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
 
     protected final String CONTENT_TYPE = "application/x-www-form-urlencoded",
                            HTTP_METHOD = "POST";
 
-    protected void fetch(String url, JSONObject data) {
+    public void fetch(String url, JSONObject data) {
         this.execute(url, data.toString());
     }
 
@@ -34,21 +35,16 @@ public class FetchAPIData extends AsyncTask<String, Void, String> {
         }
     }
 
-    protected void onFetch(JSONObject data) {
-        return;
-    }
+    protected abstract void onFetch(JSONObject data);
 
     @Override
     protected String doInBackground(String... strings) {
-        String data = null;
-
         FetchRequest fetchRequest = parseRequestData(strings);
-
         return fetch(fetchRequest);
     }
 
     protected String fetch(FetchRequest fetchRequest) {
-        String data = null;
+        StringBuilder builder = new StringBuilder();
 
         URL url;
         HttpURLConnection urlConnection = null;
@@ -58,49 +54,60 @@ public class FetchAPIData extends AsyncTask<String, Void, String> {
             urlConnection.setRequestMethod(HTTP_METHOD);
             urlConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
 
+            if (fetchRequest.getAuthToken() != null) {
+                urlConnection.setRequestProperty("Authentication", fetchRequest.getAuthToken());
+            }
+
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8");
             writer.write(fetchRequest.getPayload());
             writer.close();
 
             InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder builder = new StringBuilder();
 
             String inputString;
             while ((inputString = bufferedReader.readLine()) != null) {
                 builder.append(inputString);
             }
-
-            data = builder.toString();
         } catch (Exception e) {
             e.printStackTrace();    // FIXME: Throw some exception.
         } finally {
             urlConnection.disconnect();
         }
 
-        return data;
-
+        return builder.toString();
     }
 
     protected FetchRequest parseRequestData(String[] strings) {
         String url = strings[0];
-
-        String payload_template = "email=%s&password=%s",
-                payload;
-
         JSONObject params;
-
-        String email,
-               password;
 
         try {
             params = new JSONObject(strings[1]);
-            email = params.getString("email");
-            password = params.getString("password");
+        } catch (JSONException je) {
+            je.printStackTrace();
+            return null;    // FIXME: Throw some kind of exception.
+        }
 
-            payload = String.format(payload_template,
-                URLEncoder.encode(email, "UTF-8"),
-                URLEncoder.encode(password, "UTF-8"));
+        return new FetchRequest(url, generatePayload(params));
+    }
+
+    protected String generatePayload(JSONObject json_object) {
+        StringBuilder payload = new StringBuilder();
+        ArrayList<String> params = new ArrayList<>();
+
+        Iterator<String> keys = json_object.keys();
+        while (keys.hasNext()) {
+            params.add(keys.next());
+        }
+
+        try {
+            for (String p : params) {
+                payload.append(p
+                             + "="
+                             + URLEncoder.encode((String) json_object.get(p), "UTF-8")
+                             + "&");
+            }
         } catch (JSONException je) {
             je.printStackTrace();
             return null;    // FIXME: Throw some kind of exception.
@@ -109,7 +116,9 @@ public class FetchAPIData extends AsyncTask<String, Void, String> {
             return null;    // FIXME: Throw some kind of exception.
         }
 
-        return new FetchRequest(url, payload);
+        payload.deleteCharAt(payload.length() - 1);    // Removed last "&".
+
+        return payload.toString();
     }
 
 }

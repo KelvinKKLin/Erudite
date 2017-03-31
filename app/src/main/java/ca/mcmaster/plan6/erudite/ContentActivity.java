@@ -7,6 +7,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
+
 public class ContentActivity extends Activity {
 
     @Override
