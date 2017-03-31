@@ -86,9 +86,13 @@ public class MainActivity extends Activity {
     }
 
     private void onQuizzesButtonClick() {
+        Intent intent = new Intent(this, QuizzesActivity.class);
+        startActivity(intent);
     }
 
     private void onGradesButtonClick() {
+        Intent intent = new Intent(this, GradesActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="ca.mcmaster.plan6.erudite.EruditeApplication"
+        android:name=".EruditeApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -30,6 +30,10 @@
             android:label="@string/title_activity_login">
         </activity>
         <activity android:name=".ContentActivity">
+        </activity>
+        <activity android:name=".QuizzesActivity">
+        </activity>
+        <activity android:name=".GradesActivity">
         </activity>
     </application>
 
