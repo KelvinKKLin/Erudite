@@ -1,21 +1,11 @@
 package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
 import android.widget.TextView;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ContentActivity extends Activity {
 
@@ -32,12 +22,21 @@ public class ContentActivity extends Activity {
 
         final TextView textView = (TextView) findViewById(R.id.textView);
 
-        new FetchAPIData() {
-            @Override
-            protected void onPostExecute(String data) {
-                textView.setText(data);
-            }
-        }.execute();
+        try {
+            String url = "http://erudite.ml/login";
+            JSONObject data = new JSONObject()
+                    .put("email", "test@test.com")
+                    .put("password", "password");
+
+            new FetchAPIData() {
+                @Override
+                protected void onFetch(JSONObject data) {
+                    textView.setText(data.toString());
+                }
+            }.fetch(url, data);
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
     }
 
 }
