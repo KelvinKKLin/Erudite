@@ -5,15 +5,10 @@ public class FetchRequest {
                    payload,
                    authToken;
 
-    public FetchRequest(String url, String payload) {
+    public FetchRequest(String url, String authToken, String payload) {
         this.url = url;
-        this.payload = payload;
-        this.authToken = null;
-    }
-
-    public FetchRequest(String url, String payload, String authToken) {
-        this(url, payload);
-        this.authToken = authToken;
+        this.payload = (payload != null) ? payload : null;
+        this.authToken = (payload != null) ? authToken : null;
     }
 
     public String getUrl() {

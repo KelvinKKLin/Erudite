@@ -73,11 +73,15 @@ public class LoginActivity extends Activity {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        JSONObject data = null;
+        JSONObject data;
         try {
-            data = new JSONObject()
+            JSONObject payload = new JSONObject()
                     .put("email", email)
                     .put("password", password);
+
+            data = new JSONObject()
+                    .put("url", urlLogin)
+                    .put("payload", payload);
         } catch (JSONException je) {
             je.printStackTrace();
             return;
@@ -85,10 +89,10 @@ public class LoginActivity extends Activity {
 
         new FetchAPIData() {
             @Override
-            protected void onFetch(JSONObject data) {
+            protected void onFetch(JSONObject response) {
                 try {
-                    if ((boolean) data.get("success")) {
-                        login((String) data.get("token"));
+                    if ((boolean) response.get("success")) {
+                        login((String) response.get("token"));
                     } else {
                         loginFailed();
                     }
@@ -96,7 +100,7 @@ public class LoginActivity extends Activity {
                     je.printStackTrace();
                 }
             }
-        }.fetch(urlLogin, data);
+        }.fetch(data);
     }
 
     private void login(String token) {

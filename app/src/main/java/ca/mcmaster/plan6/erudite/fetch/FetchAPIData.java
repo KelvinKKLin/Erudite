@@ -22,28 +22,28 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
     protected final String CONTENT_TYPE = "application/x-www-form-urlencoded",
                            HTTP_METHOD = "POST";
 
-    public void fetch(String url, JSONObject data) {
-        this.execute(url, data.toString());
+    public void fetch(JSONObject data) {
+        this.execute(data.toString());
     }
 
     @Override
-    protected void onPostExecute(String data) {
+    protected void onPostExecute(String jsonData) {
         try {
-            onFetch(new JSONObject(data));
+            onFetch(new JSONObject(jsonData));
         } catch (JSONException je) {
             je.printStackTrace();
         }
     }
 
-    protected abstract void onFetch(JSONObject data);
+    protected abstract void onFetch(JSONObject response);
 
     @Override
     protected String doInBackground(String... strings) {
-        FetchRequest fetchRequest = parseRequestData(strings);
-        return fetch(fetchRequest);
+        FetchRequest fetchRequest = parseRequestData(strings[0]);
+        return fetchData(fetchRequest);
     }
 
-    protected String fetch(FetchRequest fetchRequest) {
+    protected String fetchData(FetchRequest fetchRequest) {
         StringBuilder builder = new StringBuilder();
 
         URL url;
@@ -78,21 +78,34 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
         return builder.toString();
     }
 
-    protected FetchRequest parseRequestData(String[] strings) {
-        String url = strings[0];
-        JSONObject params;
-
+    protected FetchRequest parseRequestData(String data) {
         try {
-            params = new JSONObject(strings[1]);
+            JSONObject jsonData  = new JSONObject(data);
+
+            String url  = (String) jsonData.get("url");
+            String auth_token = null;
+            JSONObject payload = null;
+
+            if (jsonData.has("auth_token")) {
+                auth_token = (String) jsonData.get("auth_token");
+            }
+
+            if (jsonData.has("payload")) {
+                payload = (JSONObject) jsonData.get("payload");
+            }
+
+            return new FetchRequest(url, auth_token, generatePayload(payload));
         } catch (JSONException je) {
             je.printStackTrace();
             return null;    // FIXME: Throw some kind of exception.
         }
-
-        return new FetchRequest(url, generatePayload(params));
     }
 
     protected String generatePayload(JSONObject json_object) {
+        if (json_object == null) {
+            return "";
+        }
+
         StringBuilder payload = new StringBuilder();
         ArrayList<String> params = new ArrayList<>();
 

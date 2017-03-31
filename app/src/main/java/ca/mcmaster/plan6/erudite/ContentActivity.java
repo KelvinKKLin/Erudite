@@ -25,17 +25,16 @@ public class ContentActivity extends Activity {
         final TextView textView = (TextView) findViewById(R.id.textView);
 
         try {
-            String url = "http://erudite.ml/login";
             JSONObject data = new JSONObject()
-                    .put("email", "test@test.com")
-                    .put("password", "password");
+                    .put("url", "http://erudite.ml/course-list")
+                    .put("auth_token", DataStore.load(R.string.pref_key_token));
 
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
                     textView.setText(data.toString());
                 }
-            }.fetch(url, data);
+            }.fetch(data);
         } catch (JSONException je) {
             je.printStackTrace();
         }
