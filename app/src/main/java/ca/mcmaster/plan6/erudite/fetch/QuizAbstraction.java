@@ -47,7 +47,7 @@ public class QuizAbstraction {
             this.questions.add(jsonobject.getString("q3"));
             this.answers.add(jsonobject.getString("a1"));
             this.answers.add(jsonobject.getString("a2"));
-            this.answers.add(jsonobject.getString("q3"));
+            this.answers.add(jsonobject.getString("a3"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
