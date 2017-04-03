@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="72a60427a15ff700767dcc5f214cdc89bb5bb6c7">
+        <dex dex="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_2788d40af51159b00f2a27af48776b6af4a2a3dc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
         <dex dex="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_ab211112db780ba6288d1f6d02412ca0383068fa\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="285e1a6679c857edcd8087e1a986c30b904d19d6">
-        <dex dex="C:\Users\Owner\Documents\BEng McMaster\Third Year Engineering\Sfwr Eng 3A04\erudite-android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_2788d40af51159b00f2a27af48776b6af4a2a3dc\classes.dex" />
     </item>
 
 </items>
