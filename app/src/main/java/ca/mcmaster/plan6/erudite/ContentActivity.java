@@ -2,23 +2,41 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 
 public class ContentActivity extends Activity {
+    ArrayList<Content> content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_activity);
 
+        // Lookup the recyclerview in activity layout
+        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+
+        // Initialize contacts
+        content = Content.createContactsList(1);
+        // Create adapter passing in the sample user data
+        ContentAdapter adapter = new ContentAdapter(this, content);
+        // Attach the adapter to the recyclerview to populate items
+        rvContacts.setAdapter(adapter);
+        // Set layout manager to position the items
+        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        // That's all!
     }
 
-    @Override
+ /*   @Override
     protected void onStart() {
         super.onStart();
 
@@ -38,6 +56,6 @@ public class ContentActivity extends Activity {
         } catch (JSONException je) {
             je.printStackTrace();
         }
-    }
+    }*/
 
 }
