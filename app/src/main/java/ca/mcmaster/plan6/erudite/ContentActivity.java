@@ -28,11 +28,12 @@ public class ContentActivity extends Activity {
 
         textView = (TextView) findViewById(R.id.textView);
 
- /*       // Lookup the recyclerview in activity layout
+
+        // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
 
         // Initialize contacts
-        content = Content.createContactsList(1);
+        content = Content.createContactsList();
         // Create adapter passing in the sample user data
         ContentAdapter adapter = new ContentAdapter(this, content);
         // Attach the adapter to the recyclerview to populate items
@@ -41,7 +42,7 @@ public class ContentActivity extends Activity {
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
 
-        System.out.print(R.string.pref_key_token);*/
+        System.out.print(R.string.pref_key_token);
     }
 
     @Override
@@ -59,11 +60,12 @@ public class ContentActivity extends Activity {
                 protected void onFetch(JSONObject data) {
                     try {
                         courseId = (String) data.getJSONArray("courses").getJSONObject(0).get("_id");
+                        DataStore.store(R.string.course_id,courseId);
                     } catch (JSONException je) {
                         je.printStackTrace();
                         return;
                     }
-                    textView.setText(courseId);
+                    //textView.setText(courseId);
                     getCourseContent();
                 }
             }.fetch(data);
@@ -87,11 +89,21 @@ public class ContentActivity extends Activity {
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
-                    textView.setText(data.toString());
+                    try {
+                        DataStore.store(R.string.course_content,data.getJSONArray("content_list").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                 /*   try {
+                        textView.setText(String.valueOf(data.getJSONArray("content_list").length()));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }*/
                 }
             }.fetch(data);
         } catch (JSONException je) {
             je.printStackTrace();
         }
     }
+
 }

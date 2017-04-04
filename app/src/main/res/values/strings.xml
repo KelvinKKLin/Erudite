@@ -4,6 +4,8 @@
 
     <string name="pref_file_key">ca.mcmaster.plan6.erudite.PREFERENCE_FILE_KEY</string>
     <string name="pref_key_token">ca.mcmaster.plan6.erudite.AUTHENTICATION_TOKEN</string>
+    <string name="course_id">ca.mcmaster.plan6.erudite.COURSE_ID</string>
+    <string name="course_content">ca.mcmaster.plan6.erudite.COURSE_CONTENT</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email (teacher or student @example.com)</string>

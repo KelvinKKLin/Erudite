@@ -31,7 +31,7 @@ public class Content {
             return contacts;
         } catch (JSONException e) {
             e.printStackTrace();
-            return contacts;
+            return null;
         }
 
     }
