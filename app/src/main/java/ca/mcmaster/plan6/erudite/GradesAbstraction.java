@@ -17,6 +17,7 @@ public class GradesAbstraction {
     private String account_type;
     private String courses;
 
+
     public GradesAbstraction(String rawData){
         this.rawData = rawData;
     }
@@ -28,5 +29,6 @@ public class GradesAbstraction {
     private void extractData(){
 
     }
+
 
 }
