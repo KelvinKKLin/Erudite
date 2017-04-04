@@ -74,8 +74,7 @@ public class QuizzesActivity extends Activity {
                     submitButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int numberCorrect = submitButtonPressed(studentAnswers, answers);
-                            Log.v("Number Correct", String.valueOf(numberCorrect));
+                            submitButtonPressed(studentAnswers, answers);
                         }
                     });
                 }
@@ -85,7 +84,7 @@ public class QuizzesActivity extends Activity {
         }
     }
 
-    private int submitButtonPressed(ArrayList<EditText> studentAnswers, ArrayList<String> answers){
+    private void submitButtonPressed(ArrayList<EditText> studentAnswers, ArrayList<String> answers){
         String[] studentAnswersText = extractStudentAnswers(studentAnswers);
         int numberCorrect = 0;
         for(int i = 0; i < studentAnswersText.length; i++){
@@ -93,7 +92,30 @@ public class QuizzesActivity extends Activity {
                 numberCorrect++;
             }
         }
-        return numberCorrect;
+
+        submitGrade(numberCorrect/3);
+    }
+
+    private void submitGrade(double grade) {
+        JSONObject data;
+        try {
+            JSONObject payload = new JSONObject()
+                    .put("quiz_name", "Quiz1")
+                    .put("grades", String.format("%s", grade));
+
+            data = new JSONObject()
+                    .put("url", "http://erudite.ml/course-quiz-submit")
+                    .put("auth_token", DataStore.load(R.string.pref_key_token))
+                    .put("payload", payload);
+        } catch (JSONException je) {
+            je.printStackTrace();
+            return;
+        }
+
+        new FetchAPIData() {
+            @Override
+            protected void onFetch(JSONObject data) { }
+        }.fetch(data);
     }
 
     private String[] extractStudentAnswers(ArrayList<EditText> studentAnswers){
