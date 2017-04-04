@@ -31,7 +31,8 @@ public class GradesActivity extends Activity {
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
-                    textView.setText(data.toString());
+                   // textView.setText(data.toString());
+                    GradesAbstraction ga = new GradesAbstraction(data.toString());
                 }
             }.fetch(data);
         } catch (JSONException je) {
