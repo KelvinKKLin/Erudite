@@ -29,20 +29,6 @@ public class ContentActivity extends Activity {
         textView = (TextView) findViewById(R.id.textView);
 
 
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
-
-        // Initialize contacts
-        content = Content.createContactsList();
-        // Create adapter passing in the sample user data
-        ContentAdapter adapter = new ContentAdapter(this, content);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
-        // That's all!
-
-        System.out.print(R.string.pref_key_token);
     }
 
     @Override
@@ -94,16 +80,27 @@ public class ContentActivity extends Activity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                 /*   try {
-                        textView.setText(String.valueOf(data.getJSONArray("content_list").length()));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }*/
+                 renderContent();
                 }
             }.fetch(data);
         } catch (JSONException je) {
             je.printStackTrace();
         }
+    }
+
+    private void renderContent() {
+        // Lookup the recyclerview in activity layout
+        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+
+        // Initialize contacts
+        content = Content.createContactsList();
+        // Create adapter passing in the sample user data
+        ContentAdapter adapter = new ContentAdapter(this, content);
+        // Attach the adapter to the recyclerview to populate items
+        rvContacts.setAdapter(adapter);
+        // Set layout manager to position the items
+        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        // That's all!
     }
 
 }
