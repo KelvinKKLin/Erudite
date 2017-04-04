@@ -23,6 +23,7 @@ public class GradesAbstraction {
     private String account_type = "";
     private String courses = "";
 
+
     public GradesAbstraction(String rawData){
         this.rawData = rawData;
         extractData();
@@ -97,5 +98,6 @@ public class GradesAbstraction {
     public String getCourses(){
         return this.courses;
     }
+
 
 }
