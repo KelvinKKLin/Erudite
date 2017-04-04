@@ -63,8 +63,8 @@ public class LoginActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        mEmailView.setText("student2@mail.com");
-        mPasswordView.setText("student");
+        mEmailView.setText("student@example.com");
+        mPasswordView.setText("password");
     }
 
     private void attemptLogin() {

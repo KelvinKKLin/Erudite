@@ -55,7 +55,12 @@ public class ContentActivity extends Activity {
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
-                    courseId = data.toString().split(",")[2].split(":")[1].replace("}]}","");
+                    try {
+                        courseId = (String) data.getJSONArray("courses").getJSONObject(0).get("_id");
+                    } catch (JSONException je) {
+                        je.printStackTrace();
+                        return;
+                    }
                     textView.setText(courseId);
                     Log.v("tagg",data.toString().split(",")[2].split(":")[1].replace("}]}",""));
                 }
