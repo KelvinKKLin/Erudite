@@ -62,7 +62,7 @@ public class ContentActivity extends Activity {
                         return;
                     }
                     textView.setText(courseId);
-                    Log.v("tagg",data.toString().split(",")[2].split(":")[1].replace("}]}",""));
+                    //Log.v("tagg",data.toString().split(",")[2].split(":")[1].replace("}]}",""));
                 }
             }.fetch(data);
 
@@ -71,15 +71,15 @@ public class ContentActivity extends Activity {
             je.printStackTrace();
         }
 
-        Log.i("testing",courseId);
-
-
         //getting content list
-     /*   try {
+        try {
+            JSONObject body = new JSONObject()
+                    .put("course_id",courseId);
+
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/course-content")
                     .put("auth_token", DataStore.load(R.string.pref_key_token))
-                    .put("course_id", courseId);
+                    .put("body",body);
 
             new FetchAPIData() {
                 @Override
@@ -89,7 +89,7 @@ public class ContentActivity extends Activity {
             }.fetch(data);
         } catch (JSONException je) {
             je.printStackTrace();
-        }*/
+        }
     }
 
 }
