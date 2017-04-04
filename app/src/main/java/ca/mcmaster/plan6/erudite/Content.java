@@ -1,5 +1,8 @@
 package ca.mcmaster.plan6.erudite;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 /**
@@ -18,14 +21,18 @@ public class Content {
     }
 
 
-
-    public static ArrayList<Content> createContactsList(int numContacts) {
+    public static ArrayList<Content> createContactsList() {
         ArrayList<Content> contacts = new ArrayList<Content>();
-
-        for (int i = 1; i <= numContacts; i++) {
-            contacts.add(new Content("Assignment 1"));
+        try {
+            JSONArray numContent = new JSONArray(DataStore.load(R.string.course_content));
+            for (int i = 0; i <= numContent.length()-1; i++) {
+                contacts.add(new Content(numContent.getJSONObject(i).get("name").toString()));
+            }
+            return contacts;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return contacts;
         }
 
-        return contacts;
     }
 }
