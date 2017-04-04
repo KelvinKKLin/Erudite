@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 
 public class ContentActivity extends Activity {
+    TextView textView;
+
     ArrayList<Content> content;
     String courseId = "";
 
@@ -23,6 +25,8 @@ public class ContentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_activity);
+
+        textView = (TextView) findViewById(R.id.textView);
 
  /*       // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
@@ -44,8 +48,6 @@ public class ContentActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        final TextView textView = (TextView) findViewById(R.id.textView);
-
         //getting courseId
         try {
             JSONObject data = new JSONObject()
@@ -62,15 +64,16 @@ public class ContentActivity extends Activity {
                         return;
                     }
                     textView.setText(courseId);
-                    //Log.v("tagg",data.toString().split(",")[2].split(":")[1].replace("}]}",""));
+                    getCourseContent();
                 }
             }.fetch(data);
-
-
         } catch (JSONException je) {
             je.printStackTrace();
         }
 
+    }
+
+    private void getCourseContent() {
         //getting content list
         try {
             JSONObject body = new JSONObject()
@@ -79,7 +82,7 @@ public class ContentActivity extends Activity {
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/course-content")
                     .put("auth_token", DataStore.load(R.string.pref_key_token))
-                    .put("body",body);
+                    .put("payload",body);
 
             new FetchAPIData() {
                 @Override
@@ -91,5 +94,4 @@ public class ContentActivity extends Activity {
             je.printStackTrace();
         }
     }
-
 }
