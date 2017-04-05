@@ -2,8 +2,11 @@ package ca.mcmaster.plan6.erudite;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Puru on 2017-04-03.
@@ -22,6 +25,7 @@ public class GradesAbstraction {
     private String password = "";
     private String account_type = "";
     private String courses = "";
+    private ArrayList<String> grades = new ArrayList<String>();
 
 
     public GradesAbstraction(String rawData){
@@ -35,6 +39,7 @@ public class GradesAbstraction {
 
     private void extractData(){
         try{
+            Log.v("Raw Data", this.rawData);
             JSONObject jsonobject = new JSONObject(this.rawData);
             this.success = jsonobject.getString("success");
             this.message = jsonobject.getString("message");
@@ -45,7 +50,7 @@ public class GradesAbstraction {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //logAllVariables();
+        logAllVariables();
     }
 
     private void extractUserData(JSONObject userdata){
@@ -55,6 +60,11 @@ public class GradesAbstraction {
             this.password = userdata.getString("password");
             this.account_type = userdata.getString("account_type");
             this.courses = userdata.getString("courses");
+
+            JSONArray userGrades = userdata.getJSONArray("grades");
+            for(int i = 0; i < userGrades.length(); i++){
+                this.grades.add(userGrades.getString(i));
+            }
         } catch(JSONException e){
             e.printStackTrace();
         }
@@ -69,6 +79,13 @@ public class GradesAbstraction {
             Log.v("Password", this.password);
             Log.v("Account Type", this.account_type);
             Log.v("Courses", this.courses);
+            for(String s : this.grades){
+                Log.v("GRADE", s);
+            }
+    }
+
+    public ArrayList<String> getGrades() {
+        return this.grades;
     }
 
     public String getSuccess(){
@@ -98,6 +115,5 @@ public class GradesAbstraction {
     public String getCourses(){
         return this.courses;
     }
-
 
 }
