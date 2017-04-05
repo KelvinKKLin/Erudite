@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".ContentSubmitActivity">
         </activity>
+        <activity android:name=".UploadActivity">
+        </activity>
     </application>
 
 </manifest>

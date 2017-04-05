@@ -23,6 +23,20 @@
             android:layout_centerHorizontal="true"/>
 
         <Button
+            android:id="@+id/upload_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="240dp"
+            android:layout_height="64dp"
+            android:layout_alignStart="@+id/quizzes_button"
+            android:layout_below="@+id/quizzes_button"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:text="Upload"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="223dp"/>
+
+        <Button
             android:id="@+id/grades_button"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="240dp"
