@@ -2,8 +2,9 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -24,8 +25,7 @@ public class GradesActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        final ListView listView = (ListView) findViewById(R.id.gradesList);
-        final ImageView gradeImage = (ImageView) findViewById(R.id.gradeImage);
+        //final ImageView aa = (ImageView) findViewById(R.id.gradeImages);
 
         try {
             JSONObject data = new JSONObject()
@@ -39,39 +39,9 @@ public class GradesActivity extends Activity {
                     GradesAbstraction ga = new GradesAbstraction(data.toString());
 
                     if(ga.getAccountType().equals("Student")){
-                        StatsPackage statsPackage = new StatsPackage();
-                        double mean = statsPackage.computeMean(ga.getGradeValues());
-
-                        setContentView(R.layout.grades_activity_student);
-                        if(mean >= 80){
-                            //Display 'a' grade picture
-                            gradeImage.setImageResource(R.drawable.a);
-                        } else if(mean >= 70){
-                            //Display 'b' grade picture
-                            gradeImage.setImageResource(R.drawable.b);
-                        } else if(mean >= 60){
-                            //Display 'c' grade picture
-                            gradeImage.setImageResource(R.drawable.c);
-                        } else if(mean >= 50){
-                            //Display 'd' grade picture
-                            gradeImage.setImageResource(R.drawable.d);
-                        } else{
-                            //Display 'F' grade picture
-                            gradeImage.setImageResource(R.drawable.fail);
-                        }
-
+                        populateStudentView(ga);
                     } else {
-                        //Display Grades
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
-                        listView.setAdapter(adapter);
-
-                        //Compute Statistics
-                        StatsPackage statsPackage = new StatsPackage();
-                        adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
-                        adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
-                        adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
-                        adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
-                        adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+                        populateTeacherView(ga);
                     }
 
                 }
@@ -79,5 +49,55 @@ public class GradesActivity extends Activity {
         } catch (JSONException je) {
             je.printStackTrace();
         }
+    }
+
+    private void populateStudentView(final GradesAbstraction ga){
+        StatsPackage statsPackage = new StatsPackage();
+        double mean = statsPackage.computeMean(ga.getGradeValues());
+
+        setContentView(R.layout.grades_activity_student);
+        ImageButton gradeImage = (ImageButton) findViewById(R.id.gradeImages);
+        if(mean >= 80){
+            //Display 'a' grade picture
+            gradeImage.setBackgroundResource(R.drawable.a);
+        } else if(mean >= 70){
+            //Display 'b' grade picture
+            gradeImage.setBackgroundResource(R.drawable.b);
+        } else if(mean >= 60){
+            //Display 'c' grade picture
+            gradeImage.setBackgroundResource(R.drawable.c);
+        } else if(mean >= 50){
+            //Display 'd' grade picture
+            gradeImage.setBackgroundResource(R.drawable.d);
+        } else{
+            //Display 'F' grade picture
+            gradeImage.setBackgroundResource(R.drawable.fail);
+        }
+
+        gradeImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.grades_activity_teacher);
+                populateTeacherView(ga);
+            }
+        });
+    }
+
+    private void populateTeacherView(final GradesAbstraction ga){
+        ListView listView = (ListView) findViewById(R.id.gradesList);
+
+        //Display Grades
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
+        listView.setAdapter(adapter);
+
+        //Compute Statistics
+        StatsPackage statsPackage = new StatsPackage();
+        adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
+        adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
+        adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
+        adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
+        adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+
     }
 }
