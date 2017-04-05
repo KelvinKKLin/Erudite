@@ -13,4 +13,10 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="246dp"/>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </android.support.constraint.ConstraintLayout>

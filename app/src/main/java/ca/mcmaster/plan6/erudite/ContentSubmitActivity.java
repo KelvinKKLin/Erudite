@@ -21,7 +21,7 @@ public class ContentSubmitActivity extends Activity {
 
         final TextView textView = (TextView) findViewById(R.id.textView);
 
-        textView.setText("testing");
+        textView.setText(String.valueOf(ContentActivity.getButtonPos()));
 
     }
 }

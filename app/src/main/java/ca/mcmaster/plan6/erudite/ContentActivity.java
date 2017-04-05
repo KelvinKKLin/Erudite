@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +22,10 @@ public class ContentActivity extends Activity {
 
     ArrayList<Content> content;
     String courseId = "";
+
+    static int buttonPos;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,7 @@ public class ContentActivity extends Activity {
     private void renderContent() {
         // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+        RecyclerViewHeader header = (RecyclerViewHeader) findViewById(R.id.header);
 
         // Initialize contacts
         content = Content.createContactsList();
@@ -103,10 +110,12 @@ public class ContentActivity extends Activity {
         ContentAdapter mAdapter = new ContentAdapter(content, new ContentAdapter.AdapterListener(){
             @Override
             public void viewButtonOnClick(View v,int position){
+                setButtonPos(position);
                 onViewButtonClick();
             }
             @Override
             public void submitButtonOnClick(View v,int position){
+                setButtonPos(position);
                 onSubmitButtonClick();
             }
         });
@@ -115,6 +124,7 @@ public class ContentActivity extends Activity {
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        header.attachTo(rvContacts);
         // That's all!
     }
 
@@ -128,4 +138,11 @@ public class ContentActivity extends Activity {
         startActivity(intent);
     }
 
+    public static void setButtonPos(int position) {
+        buttonPos = position;
+    }
+
+    public static int getButtonPos() {
+        return buttonPos;
+    }
 }
