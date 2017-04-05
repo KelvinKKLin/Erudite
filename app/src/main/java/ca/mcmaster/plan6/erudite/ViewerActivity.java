@@ -2,6 +2,7 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
@@ -9,6 +10,7 @@ import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -23,16 +25,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+import com.shockwave.pdfium.PdfDocument;
+
+
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIFile;
 
-public class ViewerActivity extends Activity {
+public class ViewerActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
     private String fileId;
     PdfRenderer pdfRenderer;
     ParcelFileDescriptor fileDescriptor;
     PdfRenderer.Page currentPage;
     ImageView imageView;
+    String fileName;
+    int pageNumber = 0;
 
-    @Override
+
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
         pdfRenderer.close();
@@ -47,13 +59,13 @@ public class ViewerActivity extends Activity {
     protected void onStop() {
         super.onStop();
         currentPage.close();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewer);
-        imageView = (ImageView) findViewById(R.id.imageView);
+       // imageView = (ImageView) findViewById(R.id.imageView);
 
         String courseId = DataStore.load(R.string.course_id);
         JSONArray courseFiles;
@@ -67,6 +79,19 @@ public class ViewerActivity extends Activity {
         }
 
         getFile(courseId, fileId);
+
+       /* String TAG = MainActivity.class.getSimpleName();
+        int REQUEST_CODE = 42;
+//        String SAMPLE_FILE = "zan.pdf";
+        PDFView pdfView = (PDFView) findViewById(R.id.pdfView);
+        Integer pageNumber = 0;
+        String pdfFileName;
+        //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //intent.setType("application/pdf");
+        //startActivityForResult(intent, REQUEST_CODE);
+
+        pdfView.fromFile(getFilenow()).load();*/
+
     }
 
     private void getFile(String courseId, String fileId) {
@@ -89,13 +114,42 @@ public class ViewerActivity extends Activity {
         new FetchAPIFile() {
             @Override
             protected void onFetch(String response) {
-                renderPDF();
+                displayFromFile(getFilenow());
             }
         }.fetch(data);
 
     }
 
-    private void renderPDF() {
+    private File getFilenow(){
+        File file = new File(this.getFilesDir(), "abc.pdf");
+        return file;
+    }
+
+    private void displayFromFile(File file){
+        PDFView pdfView = (PDFView) findViewById(R.id.pdfView);
+        fileName = file.getName();
+
+        pdfView.fromFile(file)
+                .defaultPage(pageNumber)
+                .onPageChange(this)
+                .enableAnnotationRendering(true)
+                .onLoad(this)
+                .scrollHandle(new DefaultScrollHandle(this))
+                .load();
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+
+    }
+
+    @Override
+    public void loadComplete(int nbPages) {
+
+    }
+
+
+/*    private void renderPDF() {
         File file = new File(this.getFilesDir(), "abc.pdf");
         try {
             fileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
@@ -105,7 +159,7 @@ public class ViewerActivity extends Activity {
             return;
         }
 
-        showPage(1);
+        //showPage(1);
 
     }
 
@@ -129,5 +183,5 @@ public class ViewerActivity extends Activity {
         currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
         // We are ready to show the Bitmap to user.
         imageView.setImageBitmap(bitmap);
-    }
+    }*/
 }
