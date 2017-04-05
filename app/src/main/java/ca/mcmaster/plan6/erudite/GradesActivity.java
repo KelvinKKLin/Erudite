@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
+import ca.mcmaster.plan6.erudite.fetch.StatsPackage;
 
 public class GradesActivity extends Activity {
 
@@ -31,11 +32,20 @@ public class GradesActivity extends Activity {
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
-                   // textView.setText(data.toString());
+                    //Format server data
                     GradesAbstraction ga = new GradesAbstraction(data.toString());
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
+                    //Display Grades
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
                     listView.setAdapter(adapter);
+
+                    //Compute Statistics
+                    StatsPackage statsPackage = new StatsPackage();
+                    adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
+                    adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
+                    adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
+                    adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
+                    adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
 
                 }
             }.fetch(data);

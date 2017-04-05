@@ -64,7 +64,8 @@ public class GradesAbstraction {
 
             JSONArray userGrades = userdata.getJSONArray("grades");
             for(int i = 0; i < userGrades.length(); i++){
-                this.grades.add(userGrades.getString(i));
+                String[] tempArr = userGrades.getString(i).split(":");
+                this.grades.add(tempArr[0] + ": " + tempArr[1]);
             }
 
             extractGradeData(this.grades);
@@ -92,6 +93,12 @@ public class GradesAbstraction {
             Log.v("Courses", this.courses);
             for(String s : this.grades){
                 Log.v("GRADE", s);
+            }
+            for(String s : this.gradeNames){
+                Log.v("GRADE NAME", s);
+            }
+            for(Double d : this.gradeValues){
+                Log.v("GRADE VALUE", String.valueOf(d));
             }
     }
 
