@@ -132,7 +132,7 @@ public class ViewerActivity extends AppCompatActivity implements OnPageChangeLis
         pdfView.fromFile(file)
                 .defaultPage(pageNumber)
                 .onPageChange(this)
-                .enableAnnotationRendering(true)
+                .enableAnnotationRendering(false)
                 .onLoad(this)
                 .scrollHandle(new DefaultScrollHandle(this))
                 .load();
