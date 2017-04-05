@@ -2,11 +2,11 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +74,14 @@ public class QuizzesActivity extends Activity {
                     submitButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            submitButtonPressed(studentAnswers, answers);
+                            boolean success = false;
+                            success = submitButtonPressed(studentAnswers, answers);
+                            if(success){
+                                answer1.setEnabled(false);
+                                answer2.setEnabled(false);
+                                answer3.setEnabled(false);
+                                submitButton.setEnabled(false);
+                            }
                         }
                     });
                 }
@@ -84,7 +91,7 @@ public class QuizzesActivity extends Activity {
         }
     }
 
-    private void submitButtonPressed(ArrayList<EditText> studentAnswers, ArrayList<String> answers){
+    private boolean submitButtonPressed(ArrayList<EditText> studentAnswers, ArrayList<String> answers){
         String[] studentAnswersText = extractStudentAnswers(studentAnswers);
         int numberCorrect = 0;
         for(int i = 0; i < studentAnswersText.length; i++){
@@ -93,10 +100,10 @@ public class QuizzesActivity extends Activity {
             }
         }
 
-        submitGrade(numberCorrect/3);
+        return submitGrade(((double)numberCorrect/studentAnswersText.length)*100);
     }
 
-    private void submitGrade(double grade) {
+    private boolean submitGrade(double grade) {
         JSONObject data;
         try {
             JSONObject payload = new JSONObject()
@@ -109,13 +116,16 @@ public class QuizzesActivity extends Activity {
                     .put("payload", payload);
         } catch (JSONException je) {
             je.printStackTrace();
-            return;
+            return false;
         }
 
         new FetchAPIData() {
             @Override
             protected void onFetch(JSONObject data) { }
         }.fetch(data);
+
+        Toast.makeText(getApplicationContext(),"You submitted the quiz.", Toast.LENGTH_LONG).show();
+        return true;
     }
 
     private String[] extractStudentAnswers(ArrayList<EditText> studentAnswers){
@@ -125,4 +135,5 @@ public class QuizzesActivity extends Activity {
         }
         return answers;
     }
-}
+
+ }

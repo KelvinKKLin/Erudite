@@ -61,6 +61,11 @@ public class StatsPackage {
         //Variable Instantiation
         double mean = 0;
 
+        //Check to see if input is empty
+        if(array.size() == 0){
+            return -1;
+        }
+
         //Sum all of the elements
         for(Double d : array){
             mean += d;
@@ -82,6 +87,11 @@ public class StatsPackage {
 
         //Variable Declarations
         double median;
+
+        //Check to see if input is empty
+        if(array.size() == 0){
+            return -1;
+        }
 
         //Sort the array
         Collections.sort(array);
@@ -108,6 +118,11 @@ public class StatsPackage {
      */
     public double stdDeviation(ArrayList<Double> array){
 
+        //Check to see if input is empty
+        if(array.size() == 0){
+            return -1;
+        }
+
         //Compute the standard deviation
         double stdDeviation = Math.sqrt(computeVariance(array));
 
@@ -125,6 +140,11 @@ public class StatsPackage {
         //Variable Declaration
         double variance = 0;
 
+        //Check to see if input is empty
+        if(array.size() == 0){
+            return -1;
+        }
+
         //Compute the mean
         double mean = computeMean(array);
 
@@ -137,6 +157,5 @@ public class StatsPackage {
         //Return the variance
         return variance;
     }
-
 
 }
