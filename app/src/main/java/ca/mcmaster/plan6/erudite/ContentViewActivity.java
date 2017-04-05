@@ -21,7 +21,8 @@ public class ContentViewActivity extends Activity {
         super.onStart();
 
         final TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("testing");
+        textView.setText(String.valueOf(ContentActivity.getButtonPos()));
+
 
     }
 }

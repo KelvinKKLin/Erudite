@@ -21,6 +21,8 @@ public class ContentActivity extends Activity {
     ArrayList<Content> content;
     String courseId = "";
 
+    static int buttonPos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +105,12 @@ public class ContentActivity extends Activity {
         ContentAdapter mAdapter = new ContentAdapter(content, new ContentAdapter.AdapterListener(){
             @Override
             public void viewButtonOnClick(View v,int position){
+                setButtonPos(position);
                 onViewButtonClick();
             }
             @Override
             public void submitButtonOnClick(View v,int position){
+                setButtonPos(position);
                 onSubmitButtonClick();
             }
         });
@@ -128,4 +132,11 @@ public class ContentActivity extends Activity {
         startActivity(intent);
     }
 
+    public static void setButtonPos(int position) {
+        buttonPos = position;
+    }
+
+    public static int getButtonPos() {
+        return buttonPos;
+    }
 }
