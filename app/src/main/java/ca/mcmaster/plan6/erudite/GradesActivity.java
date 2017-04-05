@@ -3,6 +3,7 @@ package ca.mcmaster.plan6.erudite;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -24,6 +25,8 @@ public class GradesActivity extends Activity {
         super.onStart();
 
         final ListView listView = (ListView) findViewById(R.id.gradesList);
+        final ImageView gradeImage = (ImageView) findViewById(R.id.imageView);
+
         try {
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/dash")
@@ -38,6 +41,8 @@ public class GradesActivity extends Activity {
                     if(ga.getAccountType().equals("Student")){
                         StatsPackage statsPackage = new StatsPackage();
                         double mean = statsPackage.computeMean(ga.getGradeValues());
+
+                        setContentView(R.layout.grades_activity_student);
                         if(mean >= 80){
                             //Display 'A' grade picture
                         } else if(mean >= 70){
@@ -49,7 +54,7 @@ public class GradesActivity extends Activity {
                         } else{
                             //Display 'F' grade picture
                         }
-                        setContentView(R.layout.grades_activity_student);
+
                     } else {
                         //Display Grades
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
