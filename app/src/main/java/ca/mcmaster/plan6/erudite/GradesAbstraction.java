@@ -15,18 +15,19 @@ import java.util.ArrayList;
 
 public class GradesAbstraction {
 
-
     private String rawData;
 
-    private String success = "";
-    private String message = "";
-    private String userID = "";
-    private String email = "";
-    private String password = "";
+    private String success      = "";
+    private String message      = "";
+    private String userID       = "";
+    private String email        = "";
+    private String password     = "";
     private String account_type = "";
-    private String courses = "";
-    private ArrayList<String> grades = new ArrayList<String>();
+    private String courses      = "";
 
+    private ArrayList<String> grades      = new ArrayList<String>();
+    private ArrayList<String> gradeNames  = new ArrayList<String>();
+    private ArrayList<Double> gradeValues = new ArrayList<Double>();
 
     public GradesAbstraction(String rawData){
         this.rawData = rawData;
@@ -65,8 +66,18 @@ public class GradesAbstraction {
             for(int i = 0; i < userGrades.length(); i++){
                 this.grades.add(userGrades.getString(i));
             }
+
+            extractGradeData(this.grades);
         } catch(JSONException e){
             e.printStackTrace();
+        }
+    }
+
+    private void extractGradeData(ArrayList<String> grades){
+        for(String str : grades){
+            String[] strArr = str.split(":");
+            this.gradeNames.add(strArr[0]);
+            this.gradeValues.add(Double.parseDouble(strArr[1]));
         }
     }
 
@@ -86,6 +97,14 @@ public class GradesAbstraction {
 
     public ArrayList<String> getGrades() {
         return this.grades;
+    }
+
+    public ArrayList<String> getGradeNames(){
+        return this.gradeNames;
+    }
+
+    public ArrayList<Double> getGradeValues(){
+        return this.gradeValues;
     }
 
     public String getSuccess(){

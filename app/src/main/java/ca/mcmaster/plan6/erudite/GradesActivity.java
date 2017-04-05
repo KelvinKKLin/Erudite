@@ -2,7 +2,8 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +22,7 @@ public class GradesActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        final TextView textView = (TextView) findViewById(R.id.textView);
-
+        final ListView listView = (ListView) findViewById(R.id.gradesList);
         try {
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/dash")
@@ -33,6 +33,10 @@ public class GradesActivity extends Activity {
                 protected void onFetch(JSONObject data) {
                    // textView.setText(data.toString());
                     GradesAbstraction ga = new GradesAbstraction(data.toString());
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
+                    listView.setAdapter(adapter);
+
                 }
             }.fetch(data);
         } catch (JSONException je) {
