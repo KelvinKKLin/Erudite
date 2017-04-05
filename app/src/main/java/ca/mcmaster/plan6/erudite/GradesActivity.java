@@ -49,10 +49,13 @@ public class GradesActivity extends Activity {
                             //Display 'B' grade picture
                         } else if(mean >= 60){
                             //Display 'C' grade picture
+                            gradeImage.setImageResource(R.drawable.C);
                         } else if(mean >= 50){
                             //Display 'D' grade picture
+                            gradeImage.setImageResource(R.drawable.D);
                         } else{
                             //Display 'F' grade picture
+                            gradeImage.setImageResource(R.drawable.Fail);
                         }
 
                     } else {
