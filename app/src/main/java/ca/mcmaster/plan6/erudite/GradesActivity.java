@@ -16,7 +16,7 @@ public class GradesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.grades_activity);
+        setContentView(R.layout.grades_activity_teacher);
     }
 
     @Override
@@ -35,17 +35,34 @@ public class GradesActivity extends Activity {
                     //Format server data
                     GradesAbstraction ga = new GradesAbstraction(data.toString());
 
-                    //Display Grades
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
-                    listView.setAdapter(adapter);
+                    if(ga.getAccountType().equals("Student")){
+                        StatsPackage statsPackage = new StatsPackage();
+                        double mean = statsPackage.computeMean(ga.getGradeValues());
+                        if(mean >= 80){
+                            //Display 'A' grade picture
+                        } else if(mean >= 70){
+                            //Display 'B' grade picture
+                        } else if(mean >= 60){
+                            //Display 'C' grade picture
+                        } else if(mean >= 50){
+                            //Display 'D' grade picture
+                        } else{
+                            //Display 'F' grade picture
+                        }
+                        setContentView(R.layout.grades_activity_student);
+                    } else {
+                        //Display Grades
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
+                        listView.setAdapter(adapter);
 
-                    //Compute Statistics
-                    StatsPackage statsPackage = new StatsPackage();
-                    adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
-                    adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
-                    adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
-                    adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
-                    adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+                        //Compute Statistics
+                        StatsPackage statsPackage = new StatsPackage();
+                        adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
+                        adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
+                        adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
+                        adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
+                        adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+                    }
 
                 }
             }.fetch(data);
