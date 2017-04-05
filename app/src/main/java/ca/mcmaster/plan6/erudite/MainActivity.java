@@ -13,7 +13,8 @@ public class MainActivity extends Activity {
 
     private Button contentButton,
                    quizzesButton,
-                   gradesButton;
+                   gradesButton,
+                   viewerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
         contentButton = (Button) findViewById(R.id.content_button);
         quizzesButton = (Button) findViewById(R.id.quizzes_button);
         gradesButton = (Button) findViewById(R.id.grades_button);
+        viewerButton = (Button) findViewById(R.id.viewer_button);
 
         contentButton.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -42,6 +44,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onGradesButtonClick();
+            }
+        });
+
+        viewerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onViewerButtonClick();
             }
         });
 
@@ -92,6 +101,11 @@ public class MainActivity extends Activity {
 
     private void onGradesButtonClick() {
         Intent intent = new Intent(this, GradesActivity.class);
+        startActivity(intent);
+    }
+
+    private void onViewerButtonClick() {
+        Intent intent = new Intent(this, ViewerActivity.class);
         startActivity(intent);
     }
 
