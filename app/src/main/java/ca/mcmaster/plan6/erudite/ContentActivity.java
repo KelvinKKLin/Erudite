@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +24,8 @@ public class ContentActivity extends Activity {
     String courseId = "";
 
     static int buttonPos;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,7 @@ public class ContentActivity extends Activity {
     private void renderContent() {
         // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+        RecyclerViewHeader header = (RecyclerViewHeader) findViewById(R.id.header);
 
         // Initialize contacts
         content = Content.createContactsList();
@@ -119,6 +124,7 @@ public class ContentActivity extends Activity {
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        header.attachTo(rvContacts);
         // That's all!
     }
 

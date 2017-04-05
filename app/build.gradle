@@ -29,6 +29,7 @@ dependencies {
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.github.barteksc:android-pdf-viewer:2.4.0'
+    compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
 
     testCompile 'junit:junit:4.12'
 }
