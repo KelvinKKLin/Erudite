@@ -35,6 +35,10 @@
         </activity>
         <activity android:name=".GradesActivity">
         </activity>
+        <activity android:name=".ContentViewActivity">
+        </activity>
+        <activity android:name=".ContentSubmitActivity">
+        </activity>
     </application>
 
 </manifest>

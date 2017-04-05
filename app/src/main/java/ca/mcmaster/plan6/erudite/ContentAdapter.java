@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,14 @@ import java.util.List;
  */
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder>  {
+
+    public static AdapterListener onClickListener;
+
+    public interface AdapterListener {
+        void viewButtonOnClick(View v, int position);
+        void submitButtonOnClick(View v, int position);
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
@@ -25,14 +35,29 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
-            submitButton = (Button) itemView.findViewById(R.id.submit_button);
-            viewButton = (Button) itemView.findViewById(R.id.view_button);
+            this.nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
+            this.submitButton = (Button) itemView.findViewById(R.id.submit_button);
+            this.viewButton = (Button) itemView.findViewById(R.id.view_button);
+
+            viewButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    onClickListener.viewButtonOnClick(v,getAdapterPosition());
+                }
+            });
+
+            submitButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    onClickListener.submitButtonOnClick(v,getAdapterPosition());
+                }
+            });
+
         }
     }
 
@@ -45,6 +70,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     public ContentAdapter(Context context, List<Content> contacts) {
         mContacts = contacts;
         mContext = context;
+    }
+
+    public ContentAdapter(List<Content> contacts, AdapterListener listener) {
+        mContacts = contacts;
+        onClickListener = listener;
     }
 
     // Easy access to the context object in the recyclerview

@@ -1,11 +1,11 @@
 package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -27,6 +27,9 @@ public class ContentActivity extends Activity {
         setContentView(R.layout.content_activity);
 
         textView = (TextView) findViewById(R.id.textView);
+
+        renderContent();
+
 
 
     }
@@ -96,11 +99,33 @@ public class ContentActivity extends Activity {
         content = Content.createContactsList();
         // Create adapter passing in the sample user data
         ContentAdapter adapter = new ContentAdapter(this, content);
+        // Button click listeners
+        ContentAdapter mAdapter = new ContentAdapter(content, new ContentAdapter.AdapterListener(){
+            @Override
+            public void viewButtonOnClick(View v,int position){
+                onViewButtonClick();
+            }
+            @Override
+            public void submitButtonOnClick(View v,int position){
+                onSubmitButtonClick();
+            }
+        });
+        rvContacts.setAdapter(mAdapter);
         // Attach the adapter to the recyclerview to populate items
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
+    }
+
+    private void onViewButtonClick() {
+        Intent intent = new Intent(this, ContentViewActivity.class);
+        startActivity(intent);
+    }
+
+    private void onSubmitButtonClick() {
+        Intent intent = new Intent(this, ContentSubmitActivity.class);
+        startActivity(intent);
     }
 
 }
