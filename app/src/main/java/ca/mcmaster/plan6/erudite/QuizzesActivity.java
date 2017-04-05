@@ -2,7 +2,6 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,7 +92,7 @@ public class QuizzesActivity extends Activity {
             }
         }
 
-        submitGrade(numberCorrect/3);
+        submitGrade(((double)numberCorrect/studentAnswersText.length)*100);
     }
 
     private void submitGrade(double grade) {
