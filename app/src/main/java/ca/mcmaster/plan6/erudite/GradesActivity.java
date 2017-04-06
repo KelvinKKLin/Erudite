@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
-import ca.mcmaster.plan6.erudite.fetch.StatsPackage;
+import ca.mcmaster.plan6.erudite.fetch.StatisticsCalculator;
 
 public class GradesActivity extends Activity {
 
@@ -55,8 +55,8 @@ public class GradesActivity extends Activity {
     }
 
     private void populateStudentView(final GradesAbstraction ga){
-        StatsPackage statsPackage = new StatsPackage();
-        double mean = statsPackage.computeMean(ga.getGradeValues());
+        StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
+        double mean = statisticsCalculator.computeMean(ga.getGradeValues());
 
         setContentView(R.layout.grades_activity_student);
         ImageButton gradeImage = (ImageButton) findViewById(R.id.gradeImages);
@@ -102,12 +102,12 @@ public class GradesActivity extends Activity {
         }
 
         //Compute Statistics
-        StatsPackage statsPackage = new StatsPackage();
-        adapter.add("Mode: " + statsPackage.computeMean(ga.getGradeValues()));
-        adapter.add("Median: " + statsPackage.computeMedian(ga.getGradeValues()));
-        adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
-        adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
-        adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+        StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
+        adapter.add("Mode: " + statisticsCalculator.computeMean(ga.getGradeValues()));
+        adapter.add("Median: " + statisticsCalculator.computeMedian(ga.getGradeValues()));
+        adapter.add("Mode: " + statisticsCalculator.computeMode(ga.getGradeValues()));
+        adapter.add("Variance: " + statisticsCalculator.computeVariance(ga.getGradeValues()));
+        adapter.add("Standard Deviation: " + statisticsCalculator.stdDeviation(ga.getGradeValues()));
 
         if(ga.getAccountType().equals("Student")){
             switchViewButton.setOnClickListener(new View.OnClickListener(){

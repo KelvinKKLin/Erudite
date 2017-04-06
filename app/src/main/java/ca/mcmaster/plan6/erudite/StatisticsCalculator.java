@@ -8,7 +8,7 @@ import java.util.HashSet;
  * Created by Puru on 2017-04-03.
  * Modified by Kelvin on 2017-04-04.
  */
-public class StatsPackage {
+public class StatisticsCalculator {
 
     //Variable Declarations
     private double tol = 0.00000000001; //Floating Point Tolerance
