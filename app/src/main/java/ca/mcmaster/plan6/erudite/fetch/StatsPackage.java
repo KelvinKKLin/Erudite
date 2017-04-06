@@ -13,7 +13,7 @@ public class StatsPackage {
     /**
      * This method calculates the mode of a collection of numbers.
      * @param array An array of numbers
-     * @return  A set of numbers denoting the mode
+     * @return  a set of numbers denoting the mode
      */
     public HashSet<Double> computeMode(ArrayList<Double> array) {
 
@@ -53,7 +53,7 @@ public class StatsPackage {
 
     /**
      * This method computes the mean of a collection of numbers.
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The mean of the collection
      */
     public double computeMean (ArrayList<Double> array){
@@ -113,7 +113,7 @@ public class StatsPackage {
 
     /**
      * This method computes the population standard deviation.
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The population standard deviation
      */
     public double stdDeviation(ArrayList<Double> array){
@@ -132,7 +132,7 @@ public class StatsPackage {
 
     /**
      * This method computes the variance for a collection of numbers
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The variance of the numbers
      */
     public double computeVariance(ArrayList<Double> array){

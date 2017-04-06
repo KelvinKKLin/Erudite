@@ -25,7 +25,7 @@ public class GradesActivity extends Activity {
         super.onStart();
 
         final ListView listView = (ListView) findViewById(R.id.gradesList);
-        final ImageView gradeImage = (ImageView) findViewById(R.id.imageView);
+        final ImageView gradeImage = (ImageView) findViewById(R.id.gradeImage);
 
         try {
             JSONObject data = new JSONObject()
@@ -44,18 +44,20 @@ public class GradesActivity extends Activity {
 
                         setContentView(R.layout.grades_activity_student);
                         if(mean >= 80){
-                            //Display 'A' grade picture
+                            //Display 'a' grade picture
+                            gradeImage.setImageResource(R.drawable.a);
                         } else if(mean >= 70){
-                            //Display 'B' grade picture
+                            //Display 'b' grade picture
+                            gradeImage.setImageResource(R.drawable.b);
                         } else if(mean >= 60){
-                            //Display 'C' grade picture
-                            gradeImage.setImageResource(R.drawable.C);
+                            //Display 'c' grade picture
+                            gradeImage.setImageResource(R.drawable.c);
                         } else if(mean >= 50){
-                            //Display 'D' grade picture
-                            gradeImage.setImageResource(R.drawable.D);
+                            //Display 'd' grade picture
+                            gradeImage.setImageResource(R.drawable.d);
                         } else{
                             //Display 'F' grade picture
-                            gradeImage.setImageResource(R.drawable.Fail);
+                            gradeImage.setImageResource(R.drawable.fail);
                         }
 
                     } else {
