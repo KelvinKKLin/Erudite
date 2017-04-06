@@ -14,6 +14,9 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +31,9 @@ public class UploadActivity extends Activity {
 
     private boolean fileSelected = false;
     private Uri fileData;
+
+    JSONArray courses, courseFiles;
+    private String course_id, file_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +88,16 @@ public class UploadActivity extends Activity {
 
 
     private void sendFile() {
-        String course_id = "58e53a40a7dd800498c1e259";
-        String file_id = "58e53a40a7dd800498c1e25d";
+        try {
+            courses = new JSONArray(DataStore.load(R.string.course_id));
+            course_id = courses.getJSONObject(ContentActivity.getButtonPos()).getString("course_id");
+            courseFiles = new JSONArray(DataStore.load(R.string.course_content));
+            file_id = courseFiles.getJSONObject(ContentActivity.getButtonPos()).getString("file_id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //String course_id = "58e53a40a7dd800498c1e259";
+        //String file_id = "58e53a40a7dd800498c1e25d";
 
         /* Unable to get full file path from Uri (content://)
            Instead copy the file to known file directory. */
@@ -100,6 +114,7 @@ public class UploadActivity extends Activity {
                 Log.i("erudite", "onCompleted:" + ((result == null) ? " null" : result.toString()));
             }
         });
+
     }
 
     /**
