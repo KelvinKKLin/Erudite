@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="ca.mcmaster.plan6.erudite.GradesActivity">
 
     <LinearLayout
@@ -26,6 +27,8 @@
             android:paddingLeft="15dp"
             android:paddingTop="25dp"
             android:text="Grades"
+            android:drawableRight="@drawable/clipboar"
+            android:drawablePadding="8dp"
             android:textSize="32sp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="16dp" />
