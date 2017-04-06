@@ -10,16 +10,19 @@ import java.util.HashSet;
  */
 public class StatsPackage {
 
+    //Variable Declarations
+    private double tol = 0.00000000001; //Floating Point Tolerance
+
     /**
      * This method calculates the mode of a collection of numbers.
      * @param array An array of numbers
-     * @return  a set of numbers denoting the mode
+     * @return  A set of numbers denoting the mode
      */
     public HashSet<Double> computeMode(ArrayList<Double> array) {
 
         //Variable Instantiation
         HashSet<Double> modes = new HashSet<Double>();
-        double maxCount = 1;
+        int maxCount = 1;
 
         //Check to see if input is empty
         if(array.size() == 0){
@@ -28,11 +31,10 @@ public class StatsPackage {
 
         //Iteratively search for the mode
         for(int i = 0; i < array.size(); i++){
-            double currentGrade = array.get(i);
             int currentMax = 1;
 
             for(int j = 0; j < array.size(); j++){
-                if(array.get(i) == array.get(j) && i!=j){
+                if(Math.abs((array.get(i) - array.get(j))) < tol && i!=j){
                     currentMax++;
                 }
             }
