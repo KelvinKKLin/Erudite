@@ -16,20 +16,24 @@ import ca.mcmaster.plan6.erudite.fetch.StatisticsCalculator;
 
 public class GradesActivity extends Activity {
 
-    private boolean hasLoadedStats = false;
-
+    /**
+     * This method initializes the GradesActivity.
+     * @param savedInstanceState    The current instance of the app
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grades_activity_teacher);
     }
 
+    /**
+     * This method defines the behaviour of the GradesActivity after initialization
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
-        //final ImageView aa = (ImageView) findViewById(R.id.gradeImages);
-
+        //Query the server for user information
         try {
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/dash")
@@ -41,6 +45,7 @@ public class GradesActivity extends Activity {
                     //Format server data
                     GradesAbstraction ga = new GradesAbstraction(data.toString());
 
+                    //Decide which view to display depending on the type of account
                     if(ga.getAccountType().equals("Student")){
                         populateStudentView(ga);
                     } else {
@@ -54,11 +59,21 @@ public class GradesActivity extends Activity {
         }
     }
 
+    /**
+     * This method defines the behaviour for the student view.
+     * This is our innovative feature.
+     * @param ga    GradeAbstraction data
+     */
     private void populateStudentView(final GradesAbstraction ga){
+
+        //Calculate the student's average
         StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
         double mean = statisticsCalculator.computeMean(ga.getGradeValues());
 
+        //Display the student grades view
         setContentView(R.layout.grades_activity_student);
+
+        //Depending on the student's average, display the corresponding feedback image
         ImageButton gradeImage = (ImageButton) findViewById(R.id.gradeImages);
         if(mean >= 80){
             //Display 'a' grade picture
@@ -77,6 +92,7 @@ public class GradesActivity extends Activity {
             gradeImage.setBackgroundResource(R.drawable.fail);
         }
 
+        //If the user presses the image, switch to teacher view
         gradeImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -87,6 +103,10 @@ public class GradesActivity extends Activity {
         });
     }
 
+    /**
+     * This method defines the behaviour for the teacher view.
+     * @param ga    GradeAbstraction data
+     */
     private void populateTeacherView(final GradesAbstraction ga){
 
         //Variable Declarations
@@ -97,6 +117,7 @@ public class GradesActivity extends Activity {
         //Variable Configuration
         listView.setAdapter(adapter);
 
+        //Add the student grades to the list
         for(String s : ga.getGrades()){
             adapter.add(s);
         }
@@ -109,6 +130,8 @@ public class GradesActivity extends Activity {
         adapter.add("Variance: " + statisticsCalculator.computeVariance(ga.getGradeValues()));
         adapter.add("Standard Deviation: " + statisticsCalculator.stdDeviation(ga.getGradeValues()));
 
+        //If the user is a student, allow the user to switch between student and teacher views
+        //Otherwise, define behaviour for teacher-only features
         if(ga.getAccountType().equals("Student")){
             switchViewButton.setOnClickListener(new View.OnClickListener(){
 
