@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -14,6 +15,8 @@ import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 import ca.mcmaster.plan6.erudite.fetch.StatsPackage;
 
 public class GradesActivity extends Activity {
+
+    private boolean hasLoadedStats = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +88,18 @@ public class GradesActivity extends Activity {
     }
 
     private void populateTeacherView(final GradesAbstraction ga){
-        ListView listView = (ListView) findViewById(R.id.gradesList);
 
-        //Display Grades
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, ga.getGrades());
+        //Variable Declarations
+        Button switchViewButton = (Button) findViewById(R.id.switchViewButton);
+        final ListView listView = (ListView) findViewById(R.id.gradesList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);
+
+        //Variable Configuration
         listView.setAdapter(adapter);
+
+        for(String s : ga.getGrades()){
+            adapter.add(s);
+        }
 
         //Compute Statistics
         StatsPackage statsPackage = new StatsPackage();
@@ -98,6 +108,21 @@ public class GradesActivity extends Activity {
         adapter.add("Mode: " + statsPackage.computeMode(ga.getGradeValues()));
         adapter.add("Variance: " + statsPackage.computeVariance(ga.getGradeValues()));
         adapter.add("Standard Deviation: " + statsPackage.stdDeviation(ga.getGradeValues()));
+
+        if(ga.getAccountType().equals("Student")){
+            switchViewButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v){
+                    setContentView(R.layout.grades_activity_student);
+                    populateStudentView(ga);
+                }
+
+            });
+        } else{
+            switchViewButton.setEnabled(false);
+            switchViewButton.setVisibility(View.INVISIBLE);
+        }
 
     }
 }

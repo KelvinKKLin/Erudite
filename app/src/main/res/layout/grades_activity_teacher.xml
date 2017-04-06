@@ -33,14 +33,13 @@
             android:id="@+id/gradesList"
             android:layout_width="match_parent"
             android:layout_height="356dp"
-            android:paddingBottom="7dp"
             android:paddingLeft="15dp"
-            android:paddingTop="5dp"
+            android:paddingRight="15dp"
             tools:layout_editor_absoluteX="-1dp"
             tools:layout_editor_absoluteY="60dp" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/switchViewButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
