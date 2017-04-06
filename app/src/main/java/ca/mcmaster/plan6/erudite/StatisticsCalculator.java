@@ -8,7 +8,10 @@ import java.util.HashSet;
  * Created by Puru on 2017-04-03.
  * Modified by Kelvin on 2017-04-04.
  */
-public class StatsPackage {
+public class StatisticsCalculator {
+
+    //Variable Declarations
+    private double tol = 0.00000000001; //Floating Point Tolerance
 
     /**
      * This method calculates the mode of a collection of numbers.
@@ -19,7 +22,7 @@ public class StatsPackage {
 
         //Variable Instantiation
         HashSet<Double> modes = new HashSet<Double>();
-        double maxCount = 1;
+        int maxCount = 1;
 
         //Check to see if input is empty
         if(array.size() == 0){
@@ -28,11 +31,10 @@ public class StatsPackage {
 
         //Iteratively search for the mode
         for(int i = 0; i < array.size(); i++){
-            double currentGrade = array.get(i);
             int currentMax = 1;
 
             for(int j = 0; j < array.size(); j++){
-                if(array.get(i) == array.get(j) && i!=j){
+                if(Math.abs((array.get(i) - array.get(j))) < tol && i!=j){
                     currentMax++;
                 }
             }
@@ -53,7 +55,7 @@ public class StatsPackage {
 
     /**
      * This method computes the mean of a collection of numbers.
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The mean of the collection
      */
     public double computeMean (ArrayList<Double> array){
@@ -113,7 +115,7 @@ public class StatsPackage {
 
     /**
      * This method computes the population standard deviation.
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The population standard deviation
      */
     public double stdDeviation(ArrayList<Double> array){
@@ -132,7 +134,7 @@ public class StatsPackage {
 
     /**
      * This method computes the variance for a collection of numbers
-     * @param array A collection of numbers
+     * @param array a collection of numbers
      * @return  The variance of the numbers
      */
     public double computeVariance(ArrayList<Double> array){

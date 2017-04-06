@@ -38,6 +38,11 @@ public class GradesAbstraction {
         this.rawData = "";
     }
 
+    public void setRawData(String rawData){
+        this.rawData = rawData;
+        extractData();
+    }
+
     private void extractData(){
         try{
             Log.v("Raw Data", this.rawData);
