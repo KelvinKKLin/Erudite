@@ -2,6 +2,7 @@ package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class UploadActivity extends Activity {
     private final int CHOOSE_FILE_REQUESTCODE = 1;
@@ -19,6 +27,7 @@ public class UploadActivity extends Activity {
     private TextView textView;
 
     private boolean fileSelected = false;
+    private Uri fileData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,8 @@ public class UploadActivity extends Activity {
         chooseButton = (Button) findViewById(R.id.choose_button);
         uploadButton = (Button) findViewById(R.id.upload_button);
         textView = (TextView) findViewById(R.id.textView);
+
+        uploadButton.setEnabled(false);
 
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +50,10 @@ public class UploadActivity extends Activity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fileSelected)
+                if (fileSelected) {
                     Log.i("erudite", "onClick: UPLOAD");
+                    sendFile();
+                }
             }
         });
     }
@@ -55,13 +68,38 @@ public class UploadActivity extends Activity {
                     Log.i("erudite", "onActivityResult: REQUEST_CANCELED");
                 } else {
                     Log.i("erudite", "onActivityResult: REQUEST_OK");
+                    fileSelected = true;
+                    fileData = data.getData();
+                    textView.setText(data.getDataString());
+                    //fileBytes = readFile(data.getData());
+                    uploadButton.setEnabled(true);
                 }
-                fileSelected = true;
-                textView.setText(data.getDataString());
                 break;
             default:
                 break;
         }
+    }
+
+
+    private void sendFile() {
+        String course_id = "58e53a40a7dd800498c1e259";
+        String file_id = "58e53a40a7dd800498c1e25d";
+
+        /* Unable to get full file path from Uri (content://)
+           Instead copy the file to known file directory. */
+        copyFileToFilesDir(fileData);
+
+        Ion.with(this)
+        .load("http://erudite.ml/course-content-submit/" + course_id + "/" + file_id)
+        .setHeader("authentication", DataStore.load(R.string.pref_key_token))
+        .setMultipartFile("assignment", new File(this.getFilesDir() + "/tmp"))
+        .asJsonObject()
+        .setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                Log.i("erudite", "onCompleted:" + ((result == null) ? " null" : result.toString()));
+            }
+        });
     }
 
     /**
@@ -95,4 +133,28 @@ public class UploadActivity extends Activity {
             Toast.makeText(getApplicationContext(), "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void copyFileToFilesDir(Uri uri) {
+
+        try {
+            File fout = new File(EruditeApplication.getContext().getFilesDir(), "tmp");
+
+            InputStream input = getContentResolver().openInputStream(uri);
+            FileOutputStream output = new FileOutputStream(fout);
+
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = input.read(buf)) > 0) {
+                output.write(buf, 0, len);
+            }
+
+            output.close();
+            input.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        }
+    }
+
 }
