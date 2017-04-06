@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,7 @@
     tools:layout_editor_absoluteX="0dp">
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="495dp"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
@@ -21,6 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quizTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="15dp"
+                android:text="Quiz"
+                android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/question1"
@@ -35,6 +44,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1">
 
                 <EditText
@@ -57,6 +67,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1">
 
                 <EditText
@@ -80,6 +91,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1">
 
                 <EditText
@@ -92,8 +104,9 @@
 
             <Button
                 android:id="@+id/submit"
-                android:layout_width="358dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
                 android:text="Finish!"
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="147dp"
@@ -101,4 +114,4 @@
         </LinearLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
