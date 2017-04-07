@@ -1,10 +1,7 @@
 package ca.mcmaster.plan6.erudite;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.KeyEvent;
