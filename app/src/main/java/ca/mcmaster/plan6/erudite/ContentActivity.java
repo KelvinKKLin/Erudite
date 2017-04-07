@@ -33,18 +33,13 @@ public class ContentActivity extends Activity {
         setContentView(R.layout.content_activity);
 
         textView = (TextView) findViewById(R.id.textView);
-
-        renderContent();
-
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        //getting courseId
+        // Get data from API.
         try {
             JSONObject data = new JSONObject()
                     .put("url", "http://erudite.ml/course-list")
@@ -60,7 +55,6 @@ public class ContentActivity extends Activity {
                         je.printStackTrace();
                         return;
                     }
-                    //textView.setText(courseId);
                     getCourseContent();
                 }
             }.fetch(data);
@@ -71,7 +65,7 @@ public class ContentActivity extends Activity {
     }
 
     private void getCourseContent() {
-        //getting content list
+        // Get course content from API
         try {
             JSONObject body = new JSONObject()
                     .put("course_id",courseId);
@@ -89,7 +83,9 @@ public class ContentActivity extends Activity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                 renderContent();
+
+                    // Render content only after all data has been received.
+                    renderContent();
                 }
             }.fetch(data);
         } catch (JSONException je) {
@@ -125,7 +121,6 @@ public class ContentActivity extends Activity {
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         header.attachTo(rvContacts);
-        // That's all!
     }
 
     private void onViewButtonClick() {
