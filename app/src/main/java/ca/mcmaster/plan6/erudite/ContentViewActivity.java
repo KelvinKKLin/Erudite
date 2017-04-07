@@ -27,6 +27,10 @@ public class ContentViewActivity extends AppCompatActivity implements OnPageChan
     String fileName;
     int pageNumber = 0;
 
+    /**
+     * This method initializes the Activity
+     * @param savedInstanceState    The current state of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,11 @@ public class ContentViewActivity extends AppCompatActivity implements OnPageChan
         getFile(courseId, fileId);
 
     }
-
+    /**
+     * This method gets the file from the server
+     * @param courseId Id of the course where the content is coming from
+     * @param fileId Id of the file that is being retrieved
+     */
     private void getFile(String courseId, String fileId) {
         JSONObject data;
 
@@ -67,12 +75,18 @@ public class ContentViewActivity extends AppCompatActivity implements OnPageChan
         }.fetch(data);
 
     }
-
+    /**
+     * This method gets the file by the file name from temp storage
+     * @return the file
+     */
     private File getFilenow(){
         File file = new File(this.getFilesDir(), "abc.pdf");
         return file;
     }
-
+    /**
+     * This method opens a pdf viewer and displays the file
+     * @param file the file is is to be displayed
+     */
     private void displayFromFile(File file){
         PDFView pdfView = (PDFView) findViewById(R.id.pdfView);
         fileName = file.getName();
@@ -88,6 +102,9 @@ public class ContentViewActivity extends AppCompatActivity implements OnPageChan
 
 
     @Override
+    /**
+     * This method defines the behaviour of the Content View subsystem after initialization
+     */
     protected void onStart() {
         super.onStart();
 

@@ -26,7 +26,10 @@ public class ContentActivity extends Activity {
     static int buttonPos;
 
 
-
+    /**
+     * This method initializes the Activity
+     * @param savedInstanceState    The current state of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,9 @@ public class ContentActivity extends Activity {
         textView = (TextView) findViewById(R.id.textView);
     }
 
+    /**
+     * This method defines the behaviour of the Content subsystem after initialization
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -59,7 +65,9 @@ public class ContentActivity extends Activity {
         }
 
     }
-
+    /**
+     * This method does the API calls that will get the list of content from a specific courseID
+     */
     private void getCourseContent() {
         // Get course content from API
         try {
@@ -88,7 +96,9 @@ public class ContentActivity extends Activity {
             je.printStackTrace();
         }
     }
-
+    /**
+     * This method renders the entire Content View
+     */
     private void renderContent() {
         // Lookup the recyclerview in activity layout
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
@@ -118,21 +128,31 @@ public class ContentActivity extends Activity {
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         header.attachTo(rvContacts);
     }
-
+    /**
+     * This method looks at button clicks for the view button
+     */
     private void onViewButtonClick() {
         Intent intent = new Intent(this, ContentViewActivity.class);
         startActivity(intent);
     }
-
+    /**
+     * This method looks at button clicks for the submit button
+     */
     private void onSubmitButtonClick() {
         Intent intent = new Intent(this, ContentSubmitActivity.class);
         startActivity(intent);
     }
-
+    /**
+     * This method sets the value for the row number of the button that is clicked
+     * @param position the row number
+     */
     public static void setButtonPos(int position) {
         buttonPos = position;
     }
-
+    /**
+     * This method gets the row number of the button that was pressed
+     * @return the row number
+     */
     public static int getButtonPos() {
         return buttonPos;
     }

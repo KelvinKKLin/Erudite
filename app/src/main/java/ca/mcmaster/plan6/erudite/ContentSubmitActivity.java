@@ -32,9 +32,13 @@ public class ContentSubmitActivity extends Activity {
     private boolean fileSelected = false;
     private Uri fileData;
 
-    JSONArray courses, courseFiles;
+
     private String course_id, file_id;
 
+    /**
+     * This method initializes the Activity
+     * @param savedInstanceState    The current state of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,12 @@ public class ContentSubmitActivity extends Activity {
         });
     }
 
+    /**
+     * This method will close the acitivity if the user presses back, or display the submission screen after the user presses choose file
+     * @param requestCode code to determine what is being requested
+     * @param data
+     * @param resultCode  code to determine what happens due to an event
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,7 +95,9 @@ public class ContentSubmitActivity extends Activity {
         }
     }
 
-
+    /**
+     * This method sends the file to the server
+     */
     private void sendFile() {
         ContentAbstraction ca = new ContentAbstraction();
         course_id = ca.getCourseID();
@@ -120,6 +132,7 @@ public class ContentSubmitActivity extends Activity {
 
     /**
      * Copyright: stackoverflow.com/Chupik and stackoverflow.com/Vitaly-Zinchenko
+     * This method opens the file selector to allow the user to select a file
      */
     public void openFile(String minmeType) {
 
@@ -149,7 +162,9 @@ public class ContentSubmitActivity extends Activity {
             Toast.makeText(getApplicationContext(), "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
         }
     }
-
+    /**
+     * This method copies the file that needs to be sent to a temporary directory
+     */
     public void copyFileToFilesDir(Uri uri) {
 
         try {
