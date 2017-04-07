@@ -10,16 +10,22 @@ import android.widget.ImageView;
 
 public class SplashActivity extends Activity {
 
+    /**
+     * Display splash screen animation.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
+        // Logo images.
         final ImageView logo = (ImageView) findViewById(R.id.logo);
         final ImageView wordmark = (ImageView) findViewById(R.id.wordmark);
         logo.setImageResource(R.drawable.logo);
         wordmark.setImageResource(R.drawable.wordmark);
 
+        // Display animation.
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -29,6 +35,7 @@ public class SplashActivity extends Activity {
             }
         }, 1000);
 
+        // Finish
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -39,11 +46,14 @@ public class SplashActivity extends Activity {
         }, 4000);
     }
 
+    /**
+     * When back button is pressed, set result and finish.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent result = new Intent();
-        setResult(RESULT_CANCELED, result);
+        setResult(RESULT_CANCELED, result); // Signal the activity was cancelled.
         finish();
     }
 }
