@@ -20,7 +20,9 @@ public class Content {
         return docName;
     }
 
-
+    /**
+     * creates the list of content that will be displayed on the content view
+     */
     public static ArrayList<Content> createContactsList() {
         ArrayList<Content> contacts = new ArrayList<Content>();
         try {

@@ -2,13 +2,10 @@ package ca.mcmaster.plan6.erudite.fetch;
 
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -16,14 +13,24 @@ import java.net.URL;
 
 import ca.mcmaster.plan6.erudite.EruditeApplication;
 
+/**
+ * Wrapper for downloading a file from an API.
+ */
 public abstract class FetchAPIFile extends FetchAPIData {
     @Override
     protected void onPostExecute(String fileData) {
         onFetch(fileData);
     }
 
+    /**
+     * Unused.
+     */
     protected void onFetch(JSONObject jsonData) { }
 
+    /**
+     * Handle response.
+     * @param fileData Response (file as a byte string).
+     */
     protected abstract void onFetch(String fileData);
 
     @Override
@@ -33,6 +40,10 @@ public abstract class FetchAPIFile extends FetchAPIData {
         return "";
     }
 
+    /**
+     * Send HTTP request and download file.
+     * @param fetchRequest
+     */
     protected void fetchFile(FetchRequest fetchRequest) {
         URL url;
         HttpURLConnection urlConnection = null;
@@ -58,7 +69,13 @@ public abstract class FetchAPIFile extends FetchAPIData {
         }
     }
 
+    /**
+     * Write file data to local file.
+     * @param urlConnection
+     * @throws IOException
+     */
     protected void getResponse(HttpURLConnection urlConnection) throws IOException {
+        // FIXME: Hardcoded path of where to save downloaded file.
         File f = new File(EruditeApplication.getContext().getFilesDir(), "abc.pdf");
 
         InputStream input = urlConnection.getInputStream();
@@ -66,6 +83,7 @@ public abstract class FetchAPIFile extends FetchAPIData {
         byte[] buffer = new byte[4096];
         int n;
 
+        // Write binary data to file
         OutputStream output = new FileOutputStream( f );
         while ((n = input.read(buffer)) != -1) {
             output.write(buffer, 0, n);

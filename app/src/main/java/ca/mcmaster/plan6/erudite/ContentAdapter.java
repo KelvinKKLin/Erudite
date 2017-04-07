@@ -20,12 +20,17 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     public static AdapterListener onClickListener;
 
+    /**
+     * interface for button clicks to be read by the content activity
+     */
     public interface AdapterListener {
         void viewButtonOnClick(View v, int position);
         void submitButtonOnClick(View v, int position);
     }
 
-
+    /**
+     * Used to hold the different views that will be within the Recycler View
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
@@ -35,6 +40,9 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
+        /**
+         * Constructor for ViewHolder that accepts the entire itrm row and does the view lookups for each subview
+         */
         public ViewHolder(final View itemView) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
@@ -66,23 +74,40 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     // Store the context for easy access
     private Context mContext;
 
+    /**
+     * Pass in the contact array into the constructor
+     * @param context
+     * @param contacts this is the list of content that will be displayed
+     */
     // Pass in the contact array into the constructor
     public ContentAdapter(Context context, List<Content> contacts) {
         mContacts = contacts;
         mContext = context;
     }
 
+    /**
+     * Used to pass the onclicklister up to ContentActivity
+     * @param contacts list of content that will be displayed
+     * @param listener the listener that is used for the button presses in the ContentActivity
+     */
     public ContentAdapter(List<Content> contacts, AdapterListener listener) {
         mContacts = contacts;
         onClickListener = listener;
     }
 
-    // Easy access to the context object in the recyclerview
+    /**
+     * Easy access to the context object in the recyclerview
+     */
+
     private Context getContext() {
         return mContext;
     }
 
-    // Usually involves inflating a layout from XML and returning the holder
+    /**
+     * Inflating a layout form XML file
+     * @param parent This is the parent view group that holds all of the other views
+     * @param viewType
+     */
     @Override
     public ContentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -96,7 +121,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
+    /**
+     * Involves populating data into the item through holder
+     * @param position the row where the content is displayed
+     * @param viewHolder Viewholder from above that holds all of the different subviews
+     */
     @Override
     public void onBindViewHolder(ContentAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
@@ -111,7 +140,9 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         sbutton.setText("Submit");
     }
 
-    // Returns the total count of items in the list
+       /**
+     * Returns the total count of items in the list
+     */
     @Override
     public int getItemCount() {
         return mContacts.size();

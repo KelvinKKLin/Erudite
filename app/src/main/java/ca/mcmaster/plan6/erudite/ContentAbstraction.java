@@ -18,15 +18,23 @@ public class ContentAbstraction {
 
     private String fileId = "";
 
+    /**
+     * Constructor
+     * @param rawData the JSON object that needs to be parsed
+     */
     public ContentAbstraction(JSONObject rawData) {
         this.rawData = rawData;
         extractData();
     }
-
+    /**
+     * Constructor
+     */
     public ContentAbstraction() {
 
     }
-
+    /**
+     * This method will extract the course_id from the rawData JSON object
+     */
     private void extractData() {
         try {
             courseId = (String) rawData.getJSONArray("courses").getJSONObject(0).get("_id");
@@ -34,7 +42,10 @@ public class ContentAbstraction {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method gets the course_ID
+     * @return Id of the course
+     */
     public String getCourseID() {
         JSONArray courses = null;
         try {
@@ -47,11 +58,17 @@ public class ContentAbstraction {
         }
 
     }
-
+    /**
+     * This method gets the course_ID
+     * @return Id of the course
+     */
     public String getCourseId() {
         return courseId;
     }
-
+    /**
+     * This method gets the fileId
+     * @return Id of the file
+     */
     public String getFileId() {
         try {
             courseFiles = new JSONArray(DataStore.load(R.string.course_content));

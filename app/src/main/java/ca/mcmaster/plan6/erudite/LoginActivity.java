@@ -18,22 +18,47 @@ import org.json.JSONObject;
 
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 
+/**
+ * Created by Varun on 2014-04-01.
+ *
+ */
 public class LoginActivity extends Activity {
 
-    // UI references.
+    /**
+     * The email input box
+     */
     private AutoCompleteTextView mEmailView;
+
+    /**
+     * The password box
+     */
     private EditText mPasswordView;
+
+    /**
+     * The progress view
+     */
     private View mProgressView;
+
+    /**
+     * The form view
+     */
     private View mLoginFormView;
 
+    /**
+     * This method defines the initialization behaviour of the login activity
+     * @param savedInstanceState    The current state of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Define the view
         setContentView(R.layout.login_activity);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -52,25 +77,21 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        mEmailView.setText("student@sample.com");
-        mPasswordView.setText("password");
-    }
-
+    /**
+     * This method attempts to submit the user login credentials to the server.
+     */
     private void attemptLogin() {
-        String urlLogin = "http://erudite.ml/login";
 
+        //Variable declarations
+        String urlLogin = "http://erudite.ml/login";
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
+        //Package the data
         JSONObject data;
         try {
             JSONObject payload = new JSONObject()
@@ -85,6 +106,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
+        //Process the response
         new FetchAPIData() {
             @Override
             protected void onFetch(JSONObject response) {
@@ -101,14 +123,25 @@ public class LoginActivity extends Activity {
         }.fetch(data);
     }
 
+    /**
+     * This method defines the successful login behaviour for the application
+     * @param token     The user login token
+     */
     private void login(String token) {
+
+        //Store the login token
         DataStore.store(R.string.pref_key_token, token);
 
+        //Return to the main menu
         Intent result = new Intent();
         setResult(RESULT_OK, result);
         finish();
     }
 
+    /**
+     * This method defines the failed login behaviour for the application.
+     * It turns all input fields red.
+     */
     private void loginFailed() {
         mEmailView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorDanger, null));
         mPasswordView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorDanger, null));

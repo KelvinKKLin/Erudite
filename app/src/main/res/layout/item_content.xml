@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
+    android:orientation="horizontal"
     android:paddingBottom="10dp"
-    >
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/contact_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        />
+        android:textSize="20sp"/>
 
     <Button
         android:id="@+id/view_button"
@@ -21,9 +22,12 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+<<<<<<< HEAD
         android:textSize="10sp"
         android:background="#FF69B4"
         android:textColor="#ffffff"
+=======
+>>>>>>> development
         />
 
     <Button
@@ -32,8 +36,11 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+<<<<<<< HEAD
         android:background="#39FF14"
         android:textColor="#ffffff"
         android:textSize="10sp"
+=======
+>>>>>>> development
         />
 </LinearLayout>

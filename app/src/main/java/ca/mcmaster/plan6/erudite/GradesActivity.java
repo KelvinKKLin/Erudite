@@ -16,6 +16,13 @@ import org.json.JSONObject;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 import ca.mcmaster.plan6.erudite.fetch.StatisticsCalculator;
 
+import static ca.mcmaster.plan6.erudite.R.drawable.a;
+
+/**
+ * Created by Varun on 2014-04-01.
+ * Modified by Kelvin on 2017-04-03.
+ */
+
 public class GradesActivity extends Activity {
 
     /**
@@ -96,7 +103,7 @@ public class GradesActivity extends Activity {
         ImageButton gradeImage = (ImageButton) findViewById(R.id.gradeImages);
         if(mean >= 80){
             //Display 'a' grade picture
-            gradeImage.setBackgroundResource(R.drawable.a);
+            gradeImage.setBackgroundResource(a);
         } else if(mean >= 70){
             //Display 'b' grade picture
             gradeImage.setBackgroundResource(R.drawable.b);
@@ -132,19 +139,13 @@ public class GradesActivity extends Activity {
         Button switchViewButton = (Button) findViewById(R.id.switchViewButton);
         TextView titleText = (TextView) findViewById(R.id.titleText);
 
-        ListView listView = (ListView) findViewById(R.id.gradesList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);
+        final ListView listView = (ListView) findViewById(R.id.gradesList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);
 
         //Variable Configuration
         listView.setAdapter(adapter);
 
-        //Add the student grades to the list
-        for(String s : ga.getGrades()){
-            adapter.add(s);
-        }
-
-        //Compute Statistics
-        computeStatistics(ga, adapter);
+       repopulateAdapter(adapter, ga);
 
         //If the user is a student, define behaviours for the back button
         if(ga instanceof SimpleGradesAbstraction) {
@@ -161,9 +162,56 @@ public class GradesActivity extends Activity {
             String title = titleText.getText().toString();
             title += ":\n" + ga.getNames().get(0);
             titleText.setText(title);
-            switchViewButton.setEnabled(false);
-            switchViewButton.setVisibility(View.INVISIBLE);
+
+            //Redefine the behaviour for the switchViewButton to refresh student grades
+            switchViewButton.setText("Refresh");
+            switchViewButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v){
+                    try {
+                        JSONObject data = new JSONObject()
+                                .put("url", "http://erudite.ml/dash-teacher")
+                                .put("auth_token", DataStore.load(R.string.pref_key_token));
+
+                        new FetchAPIData() {
+                            @Override
+                            protected void onFetch(JSONObject data) {
+                                //Format server data
+                                ga.setRawData(data.toString());
+
+                                //Clear the adapter
+                                adapter.clear();
+                                adapter.notifyDataSetChanged();
+
+                                //Repopulate the adapter
+                                repopulateAdapter(adapter, ga);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }.fetch(data);
+                    } catch (JSONException je) {
+                        je.printStackTrace();
+                    }
+                }
+
+            });
+
         }
+    }
+
+    /**
+     * This method repopulates the ArrayAdapter with new grades
+     * @param adapter   ArrayAdapter to repopulate
+     * @param ga        Updated GradeAbstraction
+     */
+    private void repopulateAdapter(ArrayAdapter<String> adapter, GradesAbstraction ga){
+        //Add the student grades to the list
+        for(String s : ga.getGrades()){
+            adapter.add(s);
+        }
+
+        //Compute Statistics
+        computeStatistics(ga, adapter);
     }
 
     /**
