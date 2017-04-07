@@ -146,6 +146,7 @@ public class GradesActivity extends Activity {
         //Compute Statistics
         computeStatistics(ga, adapter);
 
+        //If the user is a student, define behaviours for the back button
         if(ga instanceof SimpleGradesAbstraction) {
             switchViewButton.setOnClickListener(new View.OnClickListener() {
 
@@ -156,7 +157,7 @@ public class GradesActivity extends Activity {
                 }
 
             });
-        } else{
+        } else{ //If the user is a teacher, update the title to show student name
             String title = titleText.getText().toString();
             title += ":\n" + ga.getNames().get(0);
             titleText.setText(title);
