@@ -35,13 +35,8 @@ public class ContentViewActivity extends AppCompatActivity implements OnPageChan
         String courseId = DataStore.load(R.string.course_id);
         JSONArray courseFiles;
 
-        try {
-            courseFiles = new JSONArray(DataStore.load(R.string.course_content));
-            fileId = courseFiles.getJSONObject(ContentActivity.getButtonPos()).getString("file_id");
-        } catch (JSONException je) {
-            je.printStackTrace();
-            return;
-        }
+        ContentAbstraction ca = new ContentAbstraction();
+        fileId = ca.getFileId();
 
         getFile(courseId, fileId);
 

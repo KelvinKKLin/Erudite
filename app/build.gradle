@@ -30,6 +30,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.github.barteksc:android-pdf-viewer:2.4.0'
     compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
+    compile 'com.koushikdutta.ion:ion:2.+'
 
     testCompile 'junit:junit:4.12'
 }
