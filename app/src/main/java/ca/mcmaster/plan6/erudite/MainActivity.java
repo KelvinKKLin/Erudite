@@ -104,24 +104,16 @@ public class MainActivity extends Activity {
             new FetchAPIData(){
                 @Override
                 protected void onFetch(JSONObject jsonobject){
-                    try {
+                    //Store the account type into the DataStore
+                    MainAbstraction ma = new MainAbstraction(jsonobject.toString());
+                    DataStore.store(R.string.account_type, ma.getAccountType());
 
-                        //Store the account type into the DataStore
-                        String rawData = jsonobject.toString();
-                        JSONObject processedData = new JSONObject(rawData);
-                        JSONObject userData = new JSONObject(processedData.getString("user"));
-                        String accountType = userData.getString("account_type");
-                        DataStore.store(R.string.account_type,accountType);
-
-                        //If the user is a teacher, disable the quiz button and hide it
-                        if(accountType.equals("Teacher")){
-                            quizzesButton.setEnabled(false);
-                            quizzesButton.setVisibility(View.INVISIBLE);
-                        }
-
-                    } catch(JSONException e){
-                        e.printStackTrace();
+                    //If the user is a teacher, disable the quiz button and hide it
+                    if(ma.getAccountType().equals("Teacher")){
+                        quizzesButton.setEnabled(false);
+                        quizzesButton.setVisibility(View.INVISIBLE);
                     }
+
                 }
             }.fetch(jsonobject);
         } catch(JSONException e){
