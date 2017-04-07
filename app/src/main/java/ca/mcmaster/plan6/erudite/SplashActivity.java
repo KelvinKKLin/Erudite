@@ -8,11 +8,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+/**
+ * Created by Varun on 2014-04-01.
+ *
+ */
 public class SplashActivity extends Activity {
 
     /**
      * Display splash screen animation.
-     * @param savedInstanceState
+     * @param savedInstanceState    The current instance of the application
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
