@@ -86,10 +86,7 @@ public class MainActivity extends Activity {
         });
 
         //Display the splash screen
-        //launchSplashActivity();   // Disabled for debugging during development.
-
-        //Launch the login activity
-        launchLoginActivity();
+        launchSplashActivity();
     }
 
     /**
@@ -101,30 +98,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //Query the server for account information
-        try{
-            JSONObject jsonobject = new JSONObject()
-                    .put("url", "http://erudite.ml/dash")
-                    .put("auth_token", DataStore.load(R.string.pref_key_token));
-            new FetchAPIData(){
-                @Override
-                protected void onFetch(JSONObject jsonobject){
-                    //Store the account type into the DataStore
-                    MainAbstraction ma = new MainAbstraction(jsonobject.toString());
-                    DataStore.store(R.string.account_type, ma.getAccountType());
-
-                    //If the user is a teacher, disable the quiz button and hide it
-                    if(ma.getAccountType().equals("Teacher")){
-                        quizzesButton.setEnabled(false);
-                        quizzesButton.setVisibility(View.INVISIBLE);
-                    }
-
-                }
-            }.fetch(jsonobject);
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
 
         //A state machine to determine the behaviour of the code
         switch(requestCode) {
@@ -138,6 +111,8 @@ public class MainActivity extends Activity {
             case LOGIN_REQUEST_CODE:
                 if (resultCode == RESULT_CANCELED) {
                     finish();
+                } else if (requestCode == RESULT_OK) {
+                    getAccountType();
                 }
                 break;
             default:
@@ -185,4 +160,29 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    private void getAccountType() {
+        //Query the server for account information
+        try{
+            JSONObject jsonobject = new JSONObject()
+                    .put("url", "http://erudite.ml/dash")
+                    .put("auth_token", DataStore.load(R.string.pref_key_token));
+            new FetchAPIData(){
+                @Override
+                protected void onFetch(JSONObject jsonobject){
+                    //Store the account type into the DataStore
+                    MainAbstraction ma = new MainAbstraction(jsonobject.toString());
+                    DataStore.store(R.string.account_type, ma.getAccountType());
+
+                    //If the user is a teacher, disable the quiz button and hide it
+                    if(ma.getAccountType().equals("Teacher")){
+                        quizzesButton.setEnabled(false);
+                        quizzesButton.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+            }.fetch(jsonobject);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
 }
