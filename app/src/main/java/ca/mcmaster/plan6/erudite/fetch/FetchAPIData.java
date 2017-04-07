@@ -17,11 +17,19 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Wrapper for API data request and networking.
+ */
 public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
 
+    // HTTP request constants.
     protected final String CONTENT_TYPE = "application/x-www-form-urlencoded",
                            HTTP_METHOD = "POST";
 
+    /**
+     * Fetch data from an API.
+     * @param data HTTP request data.
+     */
     public void fetch(JSONObject data) {
         this.execute(data.toString());
     }
@@ -29,6 +37,7 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String jsonData) {
         try {
+            // Launch custom method to handle response data.
             onFetch(new JSONObject(jsonData));
         } catch (JSONException je) {
             je.printStackTrace();
@@ -37,12 +46,20 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
 
     protected abstract void onFetch(JSONObject response);
 
+
     @Override
     protected String doInBackground(String... strings) {
+        // Convert JSON string into FetchRequest object.
         FetchRequest fetchRequest = parseRequestData(strings[0]);
+        // Launch custom method to fetch data.
         return fetchData(fetchRequest);
     }
 
+    /**
+     * Send HTTTP request and returns response data as a string.
+     * @param fetchRequest
+     * @return Response data from API (JSON string).
+     */
     protected String fetchData(FetchRequest fetchRequest) {
         StringBuilder builder = new StringBuilder();
 
@@ -50,14 +67,17 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
         HttpURLConnection urlConnection = null;
         try {
             url = new URL(fetchRequest.getUrl());
+            // Setup urlConnection with headers and parameters.
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(HTTP_METHOD);
             urlConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
 
+            // If authentication token provided.
             if (fetchRequest.getAuthToken() != null) {
                 urlConnection.setRequestProperty("Authentication", fetchRequest.getAuthToken());
             }
 
+            // Write payload (body) to request.
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8");
             writer.write(fetchRequest.getPayload());
             writer.close();
@@ -65,6 +85,7 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
             InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
 
+            // Receive data from server.
             String inputString;
             while ((inputString = bufferedReader.readLine()) != null) {
                 builder.append(inputString);
@@ -78,6 +99,11 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
         return builder.toString();
     }
 
+    /**
+     * Parse JSON string and convert into a FetchRequest object.
+     * @param data JSON string of HTTP request data.
+     * @return FetchRequest.
+     */
     protected FetchRequest parseRequestData(String data) {
         try {
             JSONObject jsonData  = new JSONObject(data);
@@ -101,6 +127,11 @@ public abstract class FetchAPIData extends AsyncTask<String, Void, String> {
         }
     }
 
+    /**
+     * Create x-www-form-urlencoded string from payload.
+     * @param json_object
+     * @return x-www-form-urlencoded string.
+     */
     protected String generatePayload(JSONObject json_object) {
         if (json_object == null) {
             return "";
