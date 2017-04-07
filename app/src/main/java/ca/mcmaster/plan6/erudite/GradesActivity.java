@@ -222,7 +222,7 @@ public class GradesActivity extends Activity {
      */
     private void computeStatistics(GradesAbstraction ga, ArrayAdapter<String> adapter){
         StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
-        adapter.add("Mode: " + statisticsCalculator.computeMean(ga.getGradeValues()));
+        adapter.add("Mean: " + statisticsCalculator.computeMean(ga.getGradeValues()));
         adapter.add("Median: " + statisticsCalculator.computeMedian(ga.getGradeValues()));
         adapter.add("Mode: " + statisticsCalculator.computeMode(ga.getGradeValues()));
         adapter.add("Variance: " + statisticsCalculator.computeVariance(ga.getGradeValues()));

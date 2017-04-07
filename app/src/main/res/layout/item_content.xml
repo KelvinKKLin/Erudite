@@ -22,13 +22,9 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-<<<<<<< HEAD
         android:textSize="10sp"
         android:background="#FF69B4"
-        android:textColor="#ffffff"
-=======
->>>>>>> development
-        />
+        android:textColor="#ffffff" />
 
     <Button
         android:id="@+id/submit_button"
@@ -36,11 +32,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-<<<<<<< HEAD
         android:background="#39FF14"
         android:textColor="#ffffff"
-        android:textSize="10sp"
-=======
->>>>>>> development
-        />
+        android:textSize="10sp" />
 </LinearLayout>

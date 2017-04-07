@@ -28,15 +28,6 @@ public class MainActivity extends Activity {
      */
     private static final int LOGIN_REQUEST_CODE = 2;
 
-<<<<<<< HEAD
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-=======
     /**
      * The content button
      */
@@ -64,7 +55,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //Create references to the button
->>>>>>> development
         contentButton = (Button) findViewById(R.id.content_button);
         quizzesButton = (Button) findViewById(R.id.quizzes_button);
         gradesButton = (Button) findViewById(R.id.grades_button);

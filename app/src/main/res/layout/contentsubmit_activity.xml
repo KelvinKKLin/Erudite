@@ -16,17 +16,8 @@
         android:layout_alignParentStart="true"
         android:padding="15dp"
         android:text="Upload"
-        tools:layout_editor_absoluteX="108dp"
-<<<<<<< HEAD
-        tools:layout_editor_absoluteY="130dp"
-        android:background="#0000FF"
-        android:textColor="#ffffff"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/textView"
-        android:layout_toStartOf="@+id/choose_button"/>
-=======
-        tools:layout_editor_absoluteY="130dp"/>
->>>>>>> development
+        tools:layout_editor_absoluteX="108dp"/>
+
 
     <Button
         android:id="@+id/choose_button"
