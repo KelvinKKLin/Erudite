@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite.fetch;
+package ca.mcmaster.plan6.erudite.grades;
 
 import java.util.ArrayList;
 import java.util.Collections;

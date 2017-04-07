@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="ca.mcmaster.plan6.erudite.GradesActivity">
+    tools:context="ca.mcmaster.plan6.erudite.grades.GradesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

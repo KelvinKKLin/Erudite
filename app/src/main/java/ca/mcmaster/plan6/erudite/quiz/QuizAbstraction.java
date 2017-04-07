@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.quiz;
 
 import android.util.Log;
 

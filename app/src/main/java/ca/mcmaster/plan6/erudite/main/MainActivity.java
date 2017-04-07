@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,13 @@ import android.widget.Button;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ca.mcmaster.plan6.erudite.login.LoginActivity;
+import ca.mcmaster.plan6.erudite.quiz.QuizzesActivity;
+import ca.mcmaster.plan6.erudite.R;
+import ca.mcmaster.plan6.erudite.login.SplashActivity;
+import ca.mcmaster.plan6.erudite.content.ContentActivity;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
+import ca.mcmaster.plan6.erudite.grades.GradesActivity;
 
 /**
  * Created by Varun on 2014-04-01.

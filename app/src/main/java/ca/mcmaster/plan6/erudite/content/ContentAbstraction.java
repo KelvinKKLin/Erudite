@@ -1,8 +1,11 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.content;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import ca.mcmaster.plan6.erudite.main.DataStore;
+import ca.mcmaster.plan6.erudite.R;
 
 /**
  * Created by Terrance on 2017-04-06.

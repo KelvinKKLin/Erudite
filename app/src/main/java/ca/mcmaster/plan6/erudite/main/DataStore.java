@@ -1,7 +1,9 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import ca.mcmaster.plan6.erudite.R;
 
 /**
  * Single class for interfacing with the Android shared preferences API.

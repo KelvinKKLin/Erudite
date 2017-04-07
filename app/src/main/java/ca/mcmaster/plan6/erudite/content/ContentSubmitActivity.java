@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.content;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,13 +14,14 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import ca.mcmaster.plan6.erudite.main.DataStore;
+import ca.mcmaster.plan6.erudite.main.EruditeApplication;
+import ca.mcmaster.plan6.erudite.R;
 
 public class ContentSubmitActivity extends Activity {
     private final int CHOOSE_FILE_REQUESTCODE = 1;

@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import ca.mcmaster.plan6.erudite.R;
 
 /**
  * Created by Varun on 2014-04-01.

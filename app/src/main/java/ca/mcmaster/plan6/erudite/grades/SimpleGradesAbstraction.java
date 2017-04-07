@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.grades;
 
 import android.util.Log;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Modified by Kelvin on 2017-04-03.
  */
 
-public class ClassGradesAbstraction extends GradesAbstraction{
+public class SimpleGradesAbstraction extends GradesAbstraction{
 
     /**
      * The unprocessed Grade data
@@ -31,9 +31,29 @@ public class ClassGradesAbstraction extends GradesAbstraction{
     private String message      = "";
 
     /**
-     * A list of student names
+     * The user's ID
      */
-    private ArrayList<String> names       = new ArrayList<String>();
+    private String userID       = "";
+
+    /**
+     * The user's email
+     */
+    private String email        = "";
+
+    /**
+     * The user's encrypted password
+     */
+    private String password     = "";
+
+    /**
+     * The user's account type (teacher or student)
+     */
+    private String account_type = "";
+
+    /**
+     * The user's courses
+     */
+    private String courses      = "";
 
     /**
      * A list of student name-value pairs
@@ -53,7 +73,7 @@ public class ClassGradesAbstraction extends GradesAbstraction{
     /**
      * GradeAbstraction for instances without raw data
      */
-    public ClassGradesAbstraction(){
+    public SimpleGradesAbstraction(){
         this.rawData = "";
     }
 
@@ -61,7 +81,7 @@ public class ClassGradesAbstraction extends GradesAbstraction{
      * GradeAbstration for instances with raw data
      * @param rawData   Unprocessed grade data
      */
-    public ClassGradesAbstraction(String rawData){
+    public SimpleGradesAbstraction(String rawData){
         this.rawData = rawData;
         extractData();
     }
@@ -72,10 +92,6 @@ public class ClassGradesAbstraction extends GradesAbstraction{
      */
     public void setRawData(String rawData){
         this.rawData = rawData;
-        this.grades.clear();
-        this.gradeNames.clear();
-        this.gradeValues.clear();
-        this.names.clear();
         extractData();
     }
 
@@ -89,15 +105,8 @@ public class ClassGradesAbstraction extends GradesAbstraction{
             this.success = jsonobject.getString("success");
             this.message = jsonobject.getString("message");
 
-            JSONArray studentsData = jsonobject.getJSONArray("students");
-            names.add(studentsData.getString(0));
-
-            JSONArray studentGrades = studentsData.getJSONArray(2);
-            for(int i = 0; i < studentGrades.length(); i++){
-                String[] tempArr = studentGrades.getString(i).split(":");
-                this.grades.add(tempArr[0] + ": " + tempArr[1]);
-            }
-            extractGradeData(this.grades);
+            JSONObject userdata = new JSONObject(jsonobject.getString("user"));
+            extractUserData(userdata);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -105,6 +114,29 @@ public class ClassGradesAbstraction extends GradesAbstraction{
         //logAllVariables();
     }
 
+    /**
+     * This method processes the user's data
+     * @param userdata  Unprocessed user data
+     */
+    private void extractUserData(JSONObject userdata){
+        try {
+            this.userID = userdata.getString("_id");
+            this.email = userdata.getString("email");
+            this.password = userdata.getString("password");
+            this.account_type = userdata.getString("account_type");
+            this.courses = userdata.getString("courses");
+
+            JSONArray userGrades = userdata.getJSONArray("grades");
+            for(int i = 0; i < userGrades.length(); i++){
+                String[] tempArr = userGrades.getString(i).split(":");
+                this.grades.add(tempArr[0] + ": " + tempArr[1]);
+            }
+
+            extractGradeData(this.grades);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method processes the grade data
@@ -126,6 +158,11 @@ public class ClassGradesAbstraction extends GradesAbstraction{
             Log.v("DEBUG INFO", "Logging All Variables Now");
             Log.v("Success", this.success);
             Log.v("Message", this.message);
+            Log.v("UserID", this.userID);
+            Log.v("Email", this.email);
+            Log.v("Password", this.password);
+            Log.v("Account Type", this.account_type);
+            Log.v("Courses", this.courses);
             for(String s : this.grades){
                 Log.v("GRADE", s);
             }
@@ -150,7 +187,7 @@ public class ClassGradesAbstraction extends GradesAbstraction{
      * @return  List of assignment names
      */
     public ArrayList<String> getNames(){
-        return this.names;
+        return this.gradeNames;
     }
 
     /**
@@ -177,5 +214,44 @@ public class ClassGradesAbstraction extends GradesAbstraction{
         return this.message;
     }
 
+    /**
+     * This method returns the user's ID
+     * @return  User's ID
+     */
+    public String getUserID(){
+        return this.userID;
+    }
+
+    /**
+     * This method returns the user's email
+     * @return  User's email
+     */
+    public String getEmail(){
+        return this.email;
+    }
+
+    /**
+     * This method returns the user's encrypted password
+     * @return  User's encrypted password
+     */
+    public String getPassword(){
+        return this.password;
+    }
+
+    /**
+     * This method returns the user's account type
+     * @return  User's account type
+     */
+    public String getAccountType(){
+        return this.account_type;
+    }
+
+    /**
+     * This method returns the user's courses
+     * @return  User's courses
+     */
+    public String getCourses(){
+        return this.courses;
+    }
 
 }

@@ -1,6 +1,5 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.content;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -8,7 +7,6 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.shockwave.pdfium.PdfDocument;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +14,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 
+import ca.mcmaster.plan6.erudite.main.DataStore;
+import ca.mcmaster.plan6.erudite.R;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIFile;
 
 /**

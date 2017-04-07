@@ -1,4 +1,4 @@
-package ca.mcmaster.plan6.erudite;
+package ca.mcmaster.plan6.erudite.grades;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ca.mcmaster.plan6.erudite.main.DataStore;
+import ca.mcmaster.plan6.erudite.R;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
-import ca.mcmaster.plan6.erudite.fetch.StatisticsCalculator;
 
 import static ca.mcmaster.plan6.erudite.R.drawable.a;
 

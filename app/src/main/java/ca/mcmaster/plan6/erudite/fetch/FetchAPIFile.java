@@ -11,7 +11,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ca.mcmaster.plan6.erudite.EruditeApplication;
+import ca.mcmaster.plan6.erudite.main.EruditeApplication;
 
 /**
  * Wrapper for downloading a file from an API.

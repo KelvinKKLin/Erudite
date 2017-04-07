@@ -10,34 +10,34 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".EruditeApplication"
+        android:name=".main.EruditeApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity"/>
+        <activity android:name=".login.SplashActivity"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/title_activity_login">
         </activity>
-        <activity android:name=".ContentActivity">
+        <activity android:name=".content.ContentActivity">
         </activity>
-        <activity android:name=".QuizzesActivity">
+        <activity android:name=".quiz.QuizzesActivity">
         </activity>
-        <activity android:name=".GradesActivity">
+        <activity android:name=".grades.GradesActivity">
         </activity>
-        <activity android:name=".ContentViewActivity">
+        <activity android:name=".content.ContentViewActivity">
         </activity>
-        <activity android:name=".ContentSubmitActivity">
+        <activity android:name=".content.ContentSubmitActivity">
         </activity>
     </application>
 
