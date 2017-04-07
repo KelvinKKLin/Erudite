@@ -72,6 +72,10 @@ public class ClassGradesAbstraction extends GradesAbstraction{
      */
     public void setRawData(String rawData){
         this.rawData = rawData;
+        this.grades.clear();
+        this.gradeNames.clear();
+        this.gradeValues.clear();
+        this.names.clear();
         extractData();
     }
 
