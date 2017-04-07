@@ -3,6 +3,7 @@ package ca.mcmaster.plan6.erudite;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -69,10 +70,20 @@ public class MainActivity extends Activity {
                 @Override
                 protected void onFetch(JSONObject jsonobject){
                     try {
+
+                        //Store the account type into the DataStore
                         String rawData = jsonobject.toString();
                         JSONObject processedData = new JSONObject(rawData);
                         JSONObject userData = new JSONObject(processedData.getString("user"));
-                        DataStore.store(R.string.account_type,userData.getString("account_type").toString());
+                        String accountType = userData.getString("account_type");
+                        DataStore.store(R.string.account_type,accountType);
+
+                        //If the user is a teacher, disable the quiz button and hide it
+                        if(accountType.equals("Teacher")){
+                            quizzesButton.setEnabled(false);
+                            quizzesButton.setVisibility(View.INVISIBLE);
+                        }
+
                     } catch(JSONException e){
                         e.printStackTrace();
                     }
