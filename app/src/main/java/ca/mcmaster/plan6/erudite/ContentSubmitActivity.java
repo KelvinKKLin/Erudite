@@ -77,7 +77,6 @@ public class ContentSubmitActivity extends Activity {
                     fileSelected = true;
                     fileData = data.getData();
                     textView.setText(data.getDataString());
-                    //fileBytes = readFile(data.getData());
                     uploadButton.setEnabled(true);
                 }
                 break;
@@ -96,8 +95,6 @@ public class ContentSubmitActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //String course_id = "58e53a40a7dd800498c1e259";
-        //String file_id = "58e53a40a7dd800498c1e25d";
 
         /* Unable to get full file path from Uri (content://)
            Instead copy the file to known file directory. */
@@ -112,6 +109,15 @@ public class ContentSubmitActivity extends Activity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         Log.i("erudite", "onCompleted:" + ((result == null) ? " null" : result.toString()));
+                        if (result != null) {
+                            Toast.makeText(EruditeApplication.getContext(), "Uploaded :)", Toast.LENGTH_LONG)
+                                    .show();
+                        } else {
+                            Toast.makeText(EruditeApplication.getContext(), "Oh no, upload failed :(", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+
+                        finish();   // Return to previous activity after submitting.
                     }
                 });
 
