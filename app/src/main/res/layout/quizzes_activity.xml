@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context="ca.mcmaster.plan6.erudite.QuizzesActivity"
     tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    android:background="#ffffff">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -108,9 +109,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:text="Finish!"
+                android:background="#FDD835"
+                android:textColor="#ffffff"
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="147dp"
                 tools:layout_editor_absoluteY="312dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                app:srcCompat="@drawable/finshquiz" />
         </LinearLayout>
     </ScrollView>
 

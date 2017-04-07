@@ -14,14 +14,18 @@
             style="@style/Widget.AppCompat.Button"
             android:layout_width="240dp"
             android:layout_height="64dp"
-            android:layout_weight="1"
-            android:text="Quizzes"
-            tools:layout_editor_absoluteX="72dp"
-            tools:layout_editor_absoluteY="223dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="#FF8B00"
+            android:elevation="0dp"
+            android:text="Quizzes"
+            android:textColor="#ffffff"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="223dp"
+            android:layout_marginTop="18dp"
             android:layout_below="@+id/grades_button"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/grades_button"
@@ -30,12 +34,15 @@
             android:layout_height="64dp"
             android:layout_weight="1"
             android:text="Grades"
+            android:background="#03A9F4"
+            android:textColor="#ffffff"
             tools:layout_editor_absoluteX="72dp"
             tools:layout_editor_absoluteY="287dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
+            android:layout_marginTop="14dp"
             android:layout_below="@+id/content_button"
-            android:layout_alignStart="@+id/quizzes_button"/>
+            android:layout_alignStart="@+id/quizzes_button" />
 
         <Button
             android:id="@+id/content_button"
@@ -44,13 +51,15 @@
             android:layout_height="64dp"
             android:layout_weight="1"
             android:text="Content"
+            android:background="#EC407A"
+            android:textColor="#ffffff"
             tools:layout_editor_absoluteX="72dp"
             tools:layout_editor_absoluteY="159dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="141dp"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/grades_button" />
+            android:layout_alignStart="@+id/quizzes_button" />
 
 </RelativeLayout>
 
