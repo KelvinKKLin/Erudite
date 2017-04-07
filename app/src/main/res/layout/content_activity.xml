@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,33 +7,47 @@
     android:layout_height="match_parent"
     tools:context="ca.mcmaster.plan6.erudite.ContentActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="246dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvContacts"
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="25dp"
+            android:textSize="32sp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView"
+            android:text="Content"/>
 
-        <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-            android:id="@+id/header"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal|top">
+            android:layout_height="374dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="0.32">
 
-        </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvContacts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal|top"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp">
+
+            </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
