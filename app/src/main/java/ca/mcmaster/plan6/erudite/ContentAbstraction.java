@@ -35,6 +35,19 @@ public class ContentAbstraction {
         }
     }
 
+    public String getCourseID() {
+        JSONArray courses = null;
+        try {
+            courses = new JSONArray(DataStore.load(R.string.course_id));
+            courseId = courses.getJSONObject(ContentActivity.getButtonPos()).getString("course_id");
+            return courseId;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     public String getCourseId() {
         return courseId;
     }

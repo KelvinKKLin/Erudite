@@ -87,14 +87,9 @@ public class ContentSubmitActivity extends Activity {
 
 
     private void sendFile() {
-        try {
-            courses = new JSONArray(DataStore.load(R.string.course_id));
-            course_id = courses.getJSONObject(ContentActivity.getButtonPos()).getString("course_id");
-            courseFiles = new JSONArray(DataStore.load(R.string.course_content));
-            file_id = courseFiles.getJSONObject(ContentActivity.getButtonPos()).getString("file_id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        ContentAbstraction ca = new ContentAbstraction();
+        course_id = ca.getCourseID();
+        file_id = ca.getFileId();
 
         /* Unable to get full file path from Uri (content://)
            Instead copy the file to known file directory. */
