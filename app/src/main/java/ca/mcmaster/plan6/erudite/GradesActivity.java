@@ -16,6 +16,11 @@ import org.json.JSONObject;
 import ca.mcmaster.plan6.erudite.fetch.FetchAPIData;
 import ca.mcmaster.plan6.erudite.fetch.StatisticsCalculator;
 
+/**
+ * Created by Varun on 2014-04-01.
+ * Modified by Kelvin on 2017-04-03.
+ */
+
 public class GradesActivity extends Activity {
 
     /**
