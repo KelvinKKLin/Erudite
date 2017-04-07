@@ -48,13 +48,9 @@ public class ContentActivity extends Activity {
             new FetchAPIData() {
                 @Override
                 protected void onFetch(JSONObject data) {
-                    try {
-                        courseId = (String) data.getJSONArray("courses").getJSONObject(0).get("_id");
-                        DataStore.store(R.string.course_id,courseId);
-                    } catch (JSONException je) {
-                        je.printStackTrace();
-                        return;
-                    }
+                    ContentAbstraction ca = new ContentAbstraction(data);
+                    DataStore.store(R.string.course_id,ca.getCourseId());
+                    courseId = ca.getCourseId();
                     getCourseContent();
                 }
             }.fetch(data);
