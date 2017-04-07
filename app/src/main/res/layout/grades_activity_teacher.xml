@@ -50,6 +50,8 @@
             android:layout_margin="5dp"
             android:layout_weight="0.36"
             android:text="How Did You Do?"
+            android:background="#26C6DA"
+            android:textColor="#ffffff"
             android:textSize="18sp" />
 
     </LinearLayout>

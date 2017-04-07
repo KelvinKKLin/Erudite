@@ -12,7 +12,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="495dp"
+        android:layout_height="match_parent"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         tools:layout_editor_absoluteX="8dp"
@@ -28,8 +28,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingBottom="15dp"
+                android:paddingBottom="1dp"
                 android:text="Quiz"
+                android:drawableRight="@drawable/quizimage"
+                android:drawablePadding="3dp"
                 android:textSize="32sp" />
 
             <TextView
