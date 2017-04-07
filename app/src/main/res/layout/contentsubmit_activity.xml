@@ -14,6 +14,8 @@
         android:text="Upload"
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="130dp"
+        android:background="#0000FF"
+        android:textColor="#ffffff"
         android:layout_marginTop="49dp"
         android:layout_below="@+id/textView"
         android:layout_toStartOf="@+id/choose_button"/>
@@ -23,6 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose File"
+        android:background="#FF0000"
+        android:textColor="#ffffff"
         tools:layout_editor_absoluteX="259dp"
         tools:layout_editor_absoluteY="16dp"
         android:layout_alignParentTop="true"
