@@ -134,14 +134,6 @@ public class ClassGradesAbstraction extends GradesAbstraction{
     }
 
     /**
-     * This method returns a list of student names
-     * @return  List of student names
-     */
-    public ArrayList<String> getNames(){
-        return this.names;
-    }
-
-    /**
      * This method returns the user's name-grade pair
      * @return  User's name-grade pair
      */
@@ -153,8 +145,8 @@ public class ClassGradesAbstraction extends GradesAbstraction{
      * This method returns the user's list of assignment names
      * @return  List of assignment names
      */
-    public ArrayList<String> getGradeNames(){
-        return this.gradeNames;
+    public ArrayList<String> getNames(){
+        return this.names;
     }
 
     /**

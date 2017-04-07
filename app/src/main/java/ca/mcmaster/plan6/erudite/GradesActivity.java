@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +59,6 @@ public class GradesActivity extends Activity {
             }
         } else{
             //Query the server for user information
-            Log.v("STUDENT", DataStore.load(R.string.account_type));
             try {
                 JSONObject data = new JSONObject()
                         .put("url", "http://erudite.ml/dash-teacher")
@@ -130,8 +130,10 @@ public class GradesActivity extends Activity {
 
         //Variable Declarations
         Button switchViewButton = (Button) findViewById(R.id.switchViewButton);
-        final ListView listView = (ListView) findViewById(R.id.gradesList);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);
+        TextView titleText = (TextView) findViewById(R.id.titleText);
+
+        ListView listView = (ListView) findViewById(R.id.gradesList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);
 
         //Variable Configuration
         listView.setAdapter(adapter);
@@ -155,11 +157,20 @@ public class GradesActivity extends Activity {
 
             });
         } else{
+            String title = titleText.getText().toString();
+            title += ":\n" + ga.getNames().get(0);
+            titleText.setText(title);
             switchViewButton.setEnabled(false);
             switchViewButton.setVisibility(View.INVISIBLE);
         }
     }
 
+    /**
+     * This method computes the statistics for the GradeAbstraction object, and sets the
+     * appropriate values in the ArrayAdapter
+     * @param ga            GradeAbstraction containing grade data
+     * @param adapter       ArrayAdapter to display grades
+     */
     private void computeStatistics(GradesAbstraction ga, ArrayAdapter<String> adapter){
         StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
         adapter.add("Mode: " + statisticsCalculator.computeMean(ga.getGradeValues()));

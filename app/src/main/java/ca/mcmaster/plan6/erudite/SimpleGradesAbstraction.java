@@ -186,7 +186,7 @@ public class SimpleGradesAbstraction extends GradesAbstraction{
      * This method returns the user's list of assignment names
      * @return  List of assignment names
      */
-    public ArrayList<String> getGradeNames(){
+    public ArrayList<String> getNames(){
         return this.gradeNames;
     }
 

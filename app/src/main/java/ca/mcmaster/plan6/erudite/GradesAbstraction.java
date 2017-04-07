@@ -12,7 +12,7 @@ public abstract class GradesAbstraction{
     public abstract String getSuccess();
     public abstract String getMessage();
     public abstract ArrayList<String> getGrades();
-    public abstract ArrayList<String> getGradeNames();
+    public abstract ArrayList<String> getNames();
     public abstract ArrayList<Double> getGradeValues();
 
 }
