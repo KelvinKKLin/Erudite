@@ -4,21 +4,21 @@ An Android-based content management system created to learn Android app developm
 ## Contents
 The folders and files for this project are as follows:
 
-[app](https://github.com/KelvinKKLin/Erudite/tree/development/app) - The source code folder
+[app](https://github.com/KelvinKKLin/Erudite/tree/master/app) - The source code folder
 
-[gradle/wrapper](https://github.com/KelvinKKLin/Erudite/tree/development/gradle/wrapper) - Gradle wrapper files
+[gradle/wrapper](https://github.com/KelvinKKLin/Erudite/tree/master/gradle/wrapper) - Gradle wrapper files
 
-[.gitignore](https://github.com/KelvinKKLin/Erudite/blob/development/.gitignore) - The gitignore file
+[.gitignore](https://github.com/KelvinKKLin/Erudite/blob/master/.gitignore) - The gitignore file
 
-[build.gradle](https://github.com/KelvinKKLin/Erudite/blob/development/build.gradle) - The Gradle build file
+[build.gradle](https://github.com/KelvinKKLin/Erudite/blob/master/build.gradle) - The Gradle build file
 
-[gradle.properties](https://github.com/KelvinKKLin/Erudite/blob/development/gradle.properties) - The Gradle property file
+[gradle.properties](https://github.com/KelvinKKLin/Erudite/blob/master/gradle.properties) - The Gradle property file
 
-[gradlew](https://github.com/KelvinKKLin/Erudite/blob/development/gradlew) - Gradle UN*X startup script
+[gradlew](https://github.com/KelvinKKLin/Erudite/blob/master/gradlew) - Gradle UN*X startup script
 
-[gradlew.bat](https://github.com/KelvinKKLin/Erudite/blob/development/gradlew.bat) - Gradle Windows startup script
+[gradlew.bat](https://github.com/KelvinKKLin/Erudite/blob/master/gradlew.bat) - Gradle Windows startup script
 
-[settings.gradle](https://github.com/KelvinKKLin/Erudite/blob/development/settings.gradle) - Gradle settings file
+[settings.gradle](https://github.com/KelvinKKLin/Erudite/blob/master/settings.gradle) - Gradle settings file
 
 [README.md](https://github.com/KelvinKKLin/blob/master/README.md) - The README file
 
